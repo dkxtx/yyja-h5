@@ -1,11 +1,15 @@
 import axios from 'axios'
+// import { Toast, Dialog } from 'vant'
 import { Toast } from 'vant'
 // import router from '@/router'
 
 const token = localStorage.getItem('token')
 
 const serve = axios.create({
-  baseURL: 'https://sc.bzamo.com',
+  // basic url
+  // baseURL: 'http://dev.axzo.cn:4601', // 测试
+  baseURL: 'http://dev.axzo.cn:4680', // 本地
+  // baseURL: 'https://bpo.7yida.com:446', // 线上
 
   // 超时时间
   timeout: 60000,

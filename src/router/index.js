@@ -3,6 +3,8 @@ import Router from 'vue-router'
 
 import home from '@/views/home'
 import my from '@/views/my'
+
+import store from '@/views/store'
 import order from '@/views/order'
 
 // import HelloWorld from '@/components/HelloWorld'
@@ -37,6 +39,12 @@ export default new Router({
       path: '/my',
       name: 'my',
       component: my
+    },
+    {
+
+      path: '/store',
+      name: 'store',
+      component: store
     },
     {
       path: '/order',
