@@ -10,7 +10,7 @@
       active-color="#242424"
       @change="onChange"
     >
-      <van-tab title="全部">
+      <van-tab v-for="(element, elementIndex) in tabsData" :key="elementIndex" :title="element">
         <div style="width:100%;">
           <div v-if="orders.length == 0" class="no-order-class">暂无订单数据</div>
           <div
@@ -53,7 +53,7 @@
           </div>
         </div>
       </van-tab>
-      <van-tab title="待付款">
+      <!-- <van-tab title="待付款">
         <div v-if="orders.length == 0" class="no-order-class">暂无订单数据</div>
         <div style="width:100%;">
           <div
@@ -224,7 +224,7 @@
             </div>
           </div>
         </div>
-      </van-tab>
+      </van-tab> -->
     </van-tabs>
   </div>
 </template>
@@ -234,6 +234,7 @@ export default {
   components: {},
   data () {
     return {
+      tabsData: ['全部', '代付款', '代发货', '待收货', '已完成'],
       orders: [],
       active: 0
     }
