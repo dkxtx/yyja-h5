@@ -1,14 +1,11 @@
 import axios from 'axios'
-import { Toast, Dialog } from 'vant'
-import router from '@/router'
+import { Toast } from 'vant'
+// import router from '@/router'
 
 const token = localStorage.getItem('token')
 
 const serve = axios.create({
-  // basic url
-  // baseURL: 'http://dev.axzo.cn:4601', // 测试
-  baseURL: 'http://dev.axzo.cn:4680', // 本地
-  // baseURL: 'https://bpo.7yida.com:446', // 线上
+  baseURL: 'https://sc.bzamo.com',
 
   // 超时时间
   timeout: 60000,
@@ -43,7 +40,7 @@ serve.interceptors.response.use(
     const res = response
     // console.log(res)
     if (res.data.code !== 200) {
-              return res
+      return res
       // if (res.data.code === 401) {
       //   Dialog.confirm({
       //     title: '提示',
@@ -63,7 +60,7 @@ serve.interceptors.response.use(
       //   }).catch(() => {
       //     // on cancel
       //   })
-      // } 
+      // }
     } else {
       return res
     }
