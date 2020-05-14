@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 import home from '@/views/home'
 import my from '@/views/my'
+import order from '@/views/order'
 
 // import HelloWorld from '@/components/HelloWorld'
 // import bLogin from '@/views/blogin'
@@ -36,6 +37,11 @@ export default new Router({
       path: '/my',
       name: 'my',
       component: my
+    },
+    {
+      path: '/order',
+      name: 'order',
+      component: order
     }
     // {
     //   path: '/blogin',
