@@ -1,6 +1,7 @@
 import axios from 'axios'
-import { Toast, Dialog } from 'vant'
-import router from '@/router'
+// import { Toast, Dialog } from 'vant'
+import { Toast } from 'vant'
+// import router from '@/router'
 
 const token = localStorage.getItem('token')
 
@@ -43,7 +44,7 @@ serve.interceptors.response.use(
     const res = response
     // console.log(res)
     if (res.data.code !== 200) {
-              return res
+      return res
       // if (res.data.code === 401) {
       //   Dialog.confirm({
       //     title: '提示',
@@ -63,7 +64,7 @@ serve.interceptors.response.use(
       //   }).catch(() => {
       //     // on cancel
       //   })
-      // } 
+      // }
     } else {
       return res
     }

@@ -4,7 +4,7 @@
     <div class="store">
       <div class="item" v-for="(item , index) in store_list" :key="index" @click="onClickStore(item)">
       <div class="item-left">
-       <image :src="item.logo" class="store-img-class" />
+       <img :src="item.logo" class="store-img-class" />
       </div>
       <div class="item-right">
         <div class="store-name">{{item.name}}</div>
@@ -14,7 +14,7 @@
         <div style="margin-top:10rpx">
            <span class="store-activity" v-for="(activity , idx2) in item.activities" :key="idx2">{{activity}}</span>
         </div>
-        <div class="store-distance">{{item.distance_display}}m</div>
+        <!-- <div class="store-distance">{{item.distance_display}}m</div> -->
       </div>
     </div>
     </div>
@@ -53,10 +53,29 @@ export default {
   computed: {
   },
   mounted () {
+
   },
   methods: {
+
     onClickStore (store) {
       console.log(store)
+      this.$router.push({
+        path: '/store',
+        query: {
+          data: store
+        }
+      })
+    },
+    distance: function (la1, lo1, la2, lo2) {
+      var La1 = la1 * Math.PI / 180.0
+      var La2 = la2 * Math.PI / 180.0
+      var La3 = La1 - La2
+      var Lb3 = lo1 * Math.PI / 180.0 - lo2 * Math.PI / 180.0
+      var s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(La3 / 2), 2) + Math.cos(La1) * Math.cos(La2) * Math.pow(Math.sin(Lb3 / 2), 2)))
+      s = s * 6378.137
+      s = Math.round(s * 10000) / 10000
+      s = s.toFixed(2)
+      return s
     }
   }
 }
