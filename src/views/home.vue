@@ -58,11 +58,10 @@ export default {
   methods: {
 
     onClickStore (store) {
-      console.log(store)
       this.$router.push({
         path: '/store',
         query: {
-          data: store
+          data: JSON.stringify(store)
         }
       })
     },
