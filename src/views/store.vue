@@ -13,7 +13,7 @@
         <div style="margin-top:10rpx">营业时间 {{store.start_time+"-"+store.end_time}}</div>
       </div>
       <div class="phone" >
-        <a :href="'tel:'+store.phone "></a>
+        <a :href="'tel:'+store.phone">{{store.phone}}</a>
         <img src="../../images/icon-phone@2x.png" style="width:14px;height:14px" />
         <div>联系商家</div>
       </div>
@@ -45,11 +45,22 @@
 export default {
   data () {
     return {
-      indicatorDots: true,
-      autoplay: true,
-      interval: 5000,
-      duration: 1000,
-      store: {},
+      store: {
+        address: '天府三街迈普大厦',
+        city: '成都',
+        created: '2020-04-01T15:22:51+08:00',
+        district: '武侯区',
+        end_time: '22:00',
+        id: 1,
+        latitude: 30.588447,
+        logo: 'https://gd1.alicdn.com/imgextra/i1/165218339/O1CN01NpYs7K2BTJOHVPKqr_!!165218339.jpg_400x400.jpg',
+        longitude: 104.111426,
+        name: '好利来',
+        pc_id: 1,
+        phone: "'18583750607",
+        province: '四川',
+        start_time: '7:00'
+      },
       banners: [],
       goods_list: [
         {
@@ -73,14 +84,20 @@ export default {
   },
   computed: {},
   mounted () {
-    this.store = this.$route.query.data
+    // this.store = (this.$route.query.data)
     console.log(this.store)
   },
   methods: {
     onClickLeft () {
       this.$router.push({path: '/home'})
+    },
+    onClickGoods (goods) {
+      console.log(goods)
+      this.$router.push({path: '/goods',
+        query: {
+          data: goods
+        }})
     }
-
   }
 }
 </script>
