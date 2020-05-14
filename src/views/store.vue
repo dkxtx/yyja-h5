@@ -4,7 +4,7 @@
     <div class="store-name">{{store.name}}</div>
     <div class="banner">
       <div style="width: 100%;display:flex">
-        <!-- <img  :src="{{item}}" class="scroll-div-item_H"></img> -->
+        <img  :src="store.logo" class="scroll-div-item_H" />
       </div>
     </div>
     <div class="address">
@@ -14,7 +14,7 @@
       </div>
       <div class="phone" >
         <a :href="'tel:'+store.phone "></a>
-        <img src="@/images/icon-phone@2x.png" style="width:28rpx;height:28rpx" />
+        <img src="../../images/icon-phone@2x.png" style="width:14px;height:14px" />
         <div>联系商家</div>
       </div>
     </div>
@@ -31,7 +31,7 @@
         <div>
           <span class="store-activity">{{item.open_time}}</span>
         </div>
-        <div class="store-distance" style="left:230rpx;color:#FD6842;font-size:28rpx;font-family:PingFangSC-Medium,PingFang SC;font-weight:500;color:rgba(253,104,66,1);">￥{{item.price}}</div>
+        <div class="store-distance" style="left:115px;color:#FD6842;font-size:14px;font-family:PingFangSC-Medium,PingFang SC;font-weight:500;color:rgba(253,104,66,1);">￥{{item.price}}</div>
         <div class="store-distance">销售{{item.sales}}</div>
       </div>
     </div>
@@ -111,7 +111,7 @@ export default {
 .scroll-view-item {
   height: 90px;
 }
-.scroll-view-item_H {
+.scroll-div-item_H {
   display: inline-block;
   height: 90px;
   width: 120px;

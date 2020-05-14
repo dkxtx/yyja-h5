@@ -3,7 +3,9 @@ import Router from 'vue-router'
 
 import home from '@/views/home'
 import my from '@/views/my'
+
 import store from '@/views/store'
+import order from '@/views/order'
 
 // import HelloWorld from '@/components/HelloWorld'
 // import bLogin from '@/views/blogin'
@@ -39,9 +41,15 @@ export default new Router({
       component: my
     },
     {
+
       path: '/store',
       name: 'store',
       component: store
+    },
+    {
+      path: '/order',
+      name: 'order',
+      component: order
     }
     // {
     //   path: '/blogin',
