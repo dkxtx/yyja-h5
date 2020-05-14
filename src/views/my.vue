@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <van-nav-bar title="我的" />
-    my
   </div>
 </template>
 
