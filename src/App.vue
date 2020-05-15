@@ -13,7 +13,7 @@ export default {
   name: 'App',
   data () {
     return {
-      // active: 0,
+      active: 0
       // icon: {
       //   active: '/images/icon-sya-dj@2x.png',
       //   inactive: '@/images/icon-sya-wdj@2x.png'

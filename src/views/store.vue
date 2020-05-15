@@ -13,9 +13,10 @@
         <div style="margin-top:10rpx">营业时间 {{store.start_time+"-"+store.end_time}}</div>
       </div>
       <div class="phone" >
-        <a :href="'tel:'+store.phone">{{store.phone}}</a>
         <img src="../../images/icon-phone@2x.png" style="width:14px;height:14px" />
-        <div>联系商家</div>
+        <div>
+          <a style="color: #333333;" :href="'tel:'+store.phone">联系商家</a>
+        </div>
       </div>
     </div>
     <div class="section">商品列表</div>
