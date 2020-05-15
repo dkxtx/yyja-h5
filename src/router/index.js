@@ -7,6 +7,7 @@ import my from '@/views/my'
 import store from '@/views/store'
 import order from '@/views/order'
 import goods from '@/views/goods'
+import submit from '@/views/submit'
 
 // import HelloWorld from '@/components/HelloWorld'
 // import bLogin from '@/views/blogin'
@@ -56,6 +57,11 @@ export default new Router({
       path: '/goods',
       name: 'goods',
       component: goods
+    },
+    {
+      path: '/submit',
+      name: 'submit',
+      component: submit
     }
     // {
     //   path: '/blogin',
