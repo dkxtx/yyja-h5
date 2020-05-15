@@ -139,8 +139,10 @@ export default {
 
 /* pages/home/submit/index.wxss */
 .address-item{
-  width: 100%;
-  padding: 15px;
+  width: 95%;
+  margin: auto;
+  margin-top: 15px;
+  /* padding: 15px; */
 }
 .address{
   font-size:14px;
@@ -174,8 +176,9 @@ export default {
   font-family:PingFangSC-Medium,PingFang SC;
   font-weight:500;
   color:rgba(36,36,36,1);
-  width: 100%;
-  padding: 0 15px;
+  width: 95%;
+  margin: auto;
+  /* padding: 0 15px; */
   background: #ffffff;
   height: 100rpx;
   line-height: 50px;
