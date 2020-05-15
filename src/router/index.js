@@ -6,6 +6,7 @@ import my from '@/views/my'
 
 import store from '@/views/store'
 import order from '@/views/order'
+import goods from '@/views/goods'
 
 // import HelloWorld from '@/components/HelloWorld'
 // import bLogin from '@/views/blogin'
@@ -50,6 +51,11 @@ export default new Router({
       path: '/order',
       name: 'order',
       component: order
+    },
+    {
+      path: '/goods',
+      name: 'goods',
+      component: goods
     }
     // {
     //   path: '/blogin',
