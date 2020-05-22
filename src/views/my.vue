@@ -12,6 +12,23 @@
       </div>
       <!-- <img class="set_icon" src="../../images/icon-sz@2x.png" alt /> -->
     </div>
+
+    <div class="boarder"  v-if="is_login">
+      <div class="boarder-item" @click="onClickMyHouse">
+        <div style="margin-top:10px">
+          <img src="@/../images/icon-wdxq@2x.png" style="width:16px;height:16px" alt="">
+          <span style="font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">我的房屋</span>
+        </div>
+        <div style="font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(198,172,119,1);margin-top:5px">点击进入</div>
+      </div>
+        <div class="boarder-item" style="margin-left:20px" @click="onClickMyWallet">
+        <div style="margin-top:10px">
+          <img src="@/../images/icon-wdqb@2x.png" style="width:16px;height:16px" alt="">
+          <span style="font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">我的钱包</span>
+        </div>
+        <div style="font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(198,172,119,1);margin-top:5px">0.00元</div>
+      </div>
+    </div>
     <!-- <div v-if="is_login" class="location_box">
       <div class="header-location">
         <img class="location_icon" src="../../images/icon-dw@2x.png" />
@@ -95,7 +112,11 @@ export default {
     },
     loginOut () {
       this.is_login = !this.is_login
-    }
+    },
+    onClickMyWallet () {
+      window.location.href = 'https://yyja.bzamo.com/#/'
+    },
+    onClickMyHouse () {}
   }
 }
 </script>
@@ -289,5 +310,23 @@ export default {
   border-width: 0;
   margin-top: 20px;
   border-radius: 10px;
+}
+
+.boarder{
+  width: 90%;
+  margin-left: 5%;
+  height: 65px;
+  /* padding: 15px; */
+  text-align: center;
+  display: flex;
+  padding-bottom: 15px;
+}
+
+.boarder-item{
+  width: 50%;
+  height: 100%;
+  /* background-image: url('/@/images/img-wd-bj@2x.png') no-repeat center; */
+  background:linear-gradient(360deg,rgba(252,243,236,1) 0%,rgba(252,243,236,0.66) 100%);
+  border-radius: 5px;
 }
 </style>

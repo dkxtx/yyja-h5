@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { Toast } from 'vant'
+// import { Toast } from 'vant'
 // import { Toast } from 'vant'
 // import * as Common from '@/api/api'
 
@@ -54,11 +54,11 @@ export default {
   computed: {
   },
   mounted () {
-    const AppId = 'wxe5c85934d893dd13'
-    const local = window.location.href
-    window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + AppId + '&redirect_uri=' + encodeURIComponent(local) + 'response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
-    console.log(this.$route.query.data)
-    Toast(this.$route)
+    // const AppId = 'wxe5c85934d893dd13'
+    // const local = window.location.href
+    // window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + AppId + '&redirect_uri=' + encodeURIComponent(local) + 'response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
+    // console.log(this.$route.query.data)
+    // Toast(this.$route)
   },
   methods: {
     onClickStore (store) {
