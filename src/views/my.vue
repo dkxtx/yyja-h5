@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <van-nav-bar title="我的" />
-    <div class="header_box" style="padding-bottom:20px;">
+    <div class="header_box" style="padding-bottom:20px;" @click="register">
       <img class="header_logo" src="../../images/icon-user@2x.png" alt />
       <div class="center_box" v-if="is_login">
         <div class="header_text">{{user_info.name}}</div>
@@ -18,7 +18,7 @@
         <div class="location-class">中德英伦联邦1栋二单元1301</div>
         <div class="switch-btn" @click="onClickSwitch">切换房产</div>
       </div>
-    </div> -->
+    </div>-->
     <div class="line"></div>
     <div class="news-nav" @click="onClickOrder(0)">
       <div class="news-nav-title">我的订单</div>
@@ -64,7 +64,7 @@
         <img class="box_arrow" src="../../images/arrow.png" alt srcset />
       </div>
     </div>
-    <div class="line" style="height:40px"></div> -->
+    <div class="line" style="height:40px"></div>-->
     <button class="login-out-class" @click="loginOut">{{is_login==true?'退出登录':'登录/注册'}}</button>
   </div>
 </template>
@@ -74,30 +74,39 @@
 // import * as Common from '@/api/api'
 
 export default {
-  data () {
+  data() {
     return {
       is_login: true,
       user_info: {
-        name: '张劲松'
+        name: "张劲松"
       }
-    }
+    };
   },
   computed: {},
-  mounted () {},
+  mounted() {},
   methods: {
-    onClickOrder (e) {
+    onClickOrder(e) {
       this.$router.push({
-        name: 'order',
+        name: "order",
         params: {
           option: e
         }
-      })
+      });
     },
-    loginOut () {
-      this.is_login = !this.is_login
+    loginOut() {
+      this.is_login = !this.is_login;
+    },
+    // 跳转注册页面
+    register(e) {
+      this.$router.push({
+        name: "register",
+        params: {
+          option: e
+        }
+      });
     }
   }
-}
+};
 </script>
 
 <style scoped>
@@ -283,8 +292,8 @@ export default {
   font-size: 14px;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
-  color: #FFFFFF;
-  background:#D5B388;
+  color: #ffffff;
+  background: #d5b388;
   text-align: center;
   border-width: 0;
   margin-top: 20px;

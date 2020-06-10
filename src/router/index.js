@@ -8,6 +8,7 @@ import store from '@/views/store'
 import order from '@/views/order'
 import goods from '@/views/goods'
 import submit from '@/views/submit'
+import register from '@/views/register'
 
 // import HelloWorld from '@/components/HelloWorld'
 // import bLogin from '@/views/blogin'
@@ -26,97 +27,101 @@ import submit from '@/views/submit'
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: home
-    },
-    {
-      path: '/home',
-      name: 'home',
-      component: home
-    },
-    {
-      path: '/my',
-      name: 'my',
-      component: my
-    },
-    {
+    routes: [{
+            path: '/',
+            name: 'home',
+            component: home
+        },
+        {
+            path: '/home',
+            name: 'home',
+            component: home
+        },
+        {
+            path: '/my',
+            name: 'my',
+            component: my
+        },
+        {
 
-      path: '/store',
-      name: 'store',
-      component: store
-    },
-    {
-      path: '/order',
-      name: 'order',
-      component: order
-    },
-    {
-      path: '/goods',
-      name: 'goods',
-      component: goods
-    },
-    {
-      path: '/submit',
-      name: 'submit',
-      component: submit
-    }
-    // {
-    //   path: '/blogin',
-    //   name: 'blogin',
-    //   component: bLogin
-    // },
-    // {
-    //   path: '/alogin',
-    //   name: 'alogin',
-    //   component: aLogin
-    // },
-    // {
-    //   path: '/index',
-    //   name: 'index',
-    //   component: Index
-    // },
-    // {
-    //   path: '/personal',
-    //   name: 'personal',
-    //   component: Personal
-    // },
-    // {
-    //   path: '/contract',
-    //   name: 'contract',
-    //   component: Contract
-    // },
-    // {
-    //   path: '/verified',
-    //   name: 'verified',
-    //   component: Verified
-    // },
-    // {
-    //   path: '/bindEmail',
-    //   name: 'bindEmail',
-    //   component: bindEmail
-    // },
-    // {
-    //   path: '/sign',
-    //   name: 'sign',
-    //   component: Sign
-    // },
-    // {
-    //   path: '/success',
-    //   name: 'success',
-    //   component: Success
-    // },
-    // {
-    //   path: '/bankVerify',
-    //   name: 'bankVerify',
-    //   component: BankVerify
-    // },
-    // {
-    //   path: '/fromCode',
-    //   name: 'fromCode',
-    //   component: fromCode
-    // }
-  ]
+            path: '/store',
+            name: 'store',
+            component: store
+        },
+        {
+            path: '/order',
+            name: 'order',
+            component: order
+        },
+        {
+            path: '/goods',
+            name: 'goods',
+            component: goods
+        },
+        {
+            path: '/submit',
+            name: 'submit',
+            component: submit
+        },
+        {
+            path: '/register',
+            name: 'register',
+            component: register
+        }
+        // {
+        //   path: '/blogin',
+        //   name: 'blogin',
+        //   component: bLogin
+        // },
+        // {
+        //   path: '/alogin',
+        //   name: 'alogin',
+        //   component: aLogin
+        // },
+        // {
+        //   path: '/index',
+        //   name: 'index',
+        //   component: Index
+        // },
+        // {
+        //   path: '/personal',
+        //   name: 'personal',
+        //   component: Personal
+        // },
+        // {
+        //   path: '/contract',
+        //   name: 'contract',
+        //   component: Contract
+        // },
+        // {
+        //   path: '/verified',
+        //   name: 'verified',
+        //   component: Verified
+        // },
+        // {
+        //   path: '/bindEmail',
+        //   name: 'bindEmail',
+        //   component: bindEmail
+        // },
+        // {
+        //   path: '/sign',
+        //   name: 'sign',
+        //   component: Sign
+        // },
+        // {
+        //   path: '/success',
+        //   name: 'success',
+        //   component: Success
+        // },
+        // {
+        //   path: '/bankVerify',
+        //   name: 'bankVerify',
+        //   component: BankVerify
+        // },
+        // {
+        //   path: '/fromCode',
+        //   name: 'fromCode',
+        //   component: fromCode
+        // }
+    ]
 })
