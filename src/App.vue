@@ -28,5 +28,7 @@ export default {
 </script>
 
 <style>
-
+.van-nav-bar .van-icon {
+    color: #333333;
+}
 </style>

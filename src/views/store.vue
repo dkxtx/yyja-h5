@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <van-nav-bar title="周边商家" left-arrow @click-left="onClickLeft" />
+    <van-nav-bar title="商家详情" left-arrow @click-left="onClickLeft" />
     <div class="store-name">{{store.name}}</div>
     <div class="banner">
       <div style="width: 100%;display:flex">
