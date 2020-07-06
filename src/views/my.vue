@@ -84,6 +84,7 @@
     <div class="line" style="height:40px"></div>-->
     <button class="login-out-class" @click="loginOut">{{is_login==true?'退出登录':'登录/注册'}}</button>
     <div>{{resultPath2}}</div>
+    <div>{{code}}</div>
   </div>
 </template>
 
@@ -98,19 +99,44 @@ export default {
       user_info: {
         name: '张劲松'
       },
-      resultPath2: ''
+      resultPath2: '',
+      code: ''
     }
   },
   created () {
     this.resultPath2 = window.location.href
     if (window.location.href.indexOf('?') !== -1) {
       const url = window.location.href
+      Toast({
+        message: url,
+        duration: 5000
+      })
       const code = url.substring(url.indexOf('?') + 1, url.indexOf('#')).split('&')[0].split('=')[1]
+      Toast({
+        message: code,
+        duration: 10000
+      })
+      this.code = code
       this.getToken(code)
     }
   },
   computed: {},
   mounted () {
+    // this.resultPath2 = window.location.href
+    // if (window.location.href.indexOf('?') !== -1) {
+    //   const url = window.location.href
+    //   Toast({
+    //     message: url,
+    //     duration: 5000
+    //   })
+    //   const code = url.substring(url.indexOf('?') + 1, url.indexOf('#')).split('&')[0].split('=')[1]
+    //   Toast({
+    //     message: code,
+    //     duration: 5000
+    //   })
+    //   this.code = code
+    //   this.getToken(code)
+    // }
   },
   methods: {
     onClickOrder (e) {
@@ -123,21 +149,40 @@ export default {
     },
     getToken (code) {
       // const response = window.location.replace(`https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx54d6bcf1415974fb&secret=07f9a553a3922cbf079a41df861e67df&code=${code}&grant_type=authorization_code`)
-      axios.create({
-        baseURL: 'https://api.weixin.qq.com',
-        timeout: 1000,
-        headers: {'X-Custom-Header': 'foobar'}
+      Toast({
+        message: 'token',
+        duration: 5000
       })
-      axios.get(`/sns/oauth2/access_token?appid=wx54d6bcf1415974fb&secret=07f9a553a3922cbf079a41df861e67df&code=${code}&grant_type=authorization_code`)
-        .then((response) => {
-          // this.response = JSON.stringify(response)
+      // window.location.href = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx54d6bcf1415974fb&secret=07f9a553a3922cbf079a41df861e67df&code=' + code + '&grant_type=authorization_code'
+      // axios.create({
+      //   baseURL: 'https://api.weixin.qq.com',
+      //   timeout: 1000,
+      //   headers: {'X-Custom-Header': 'foobar', 'Access-Control-Allow-Origin': '*'},
+      //   xhrFields: {
+      //     withCredentials: false
+      //   }
+      // })
+      // axios.get('https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx54d6bcf1415974fb&secret=07f9a553a3922cbf079a41df861e67df&code=' + code + '&grant_type=authorization_code')
+      //   .then((response) => {
+      //     // this.response = JSON.stringify(response)
+      //     Toast(response)
+      //   })
+      //   .catch((error) => {
+      //     console.log(error)
+      //     // this.error = JSON.stringify(error)
+      //   })
 
-          Toast(response)
-        })
-        .catch((error) => {
-          console.log(error)
-          // this.error = JSON.stringify(error)
-        })
+      axios({
+        method: 'get',
+        headers: {
+          'Access-Control-Allow-Origin': '*'
+        },
+
+        url: 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx54d6bcf1415974fb&secret=07f9a553a3922cbf079a41df861e67df&code=' + code + '&grant_type=authorization_code',
+        params: {}
+      }).then(res => {
+        Toast(res)
+      })
     },
     getUserInfo () {
       window.location.replace(`https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN`)
