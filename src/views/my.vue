@@ -83,24 +83,34 @@
     </div>
     <div class="line" style="height:40px"></div>-->
     <button class="login-out-class" @click="loginOut">{{is_login==true?'退出登录':'登录/注册'}}</button>
+    <div>{{resultPath2}}</div>
   </div>
 </template>
 
 <script>
 // import { Toast } from 'vant'
-// import * as Common from '@/api/api'
 
 export default {
   data () {
     return {
-      is_login: true,
+      is_login: false,
       user_info: {
         name: '张劲松'
-      }
+      },
+      resultPath2: ''
+    }
+  },
+  created () {
+    this.resultPath2 = window.location.href
+    if (window.location.href.indexOf('?') !== -1) {
+      const url = window.location.href
+      const code = url.substring(url.indexOf('?') + 1, url.indexOf('#')).split('&')[0].split('=')[1]
+      this.getToken(code)
     }
   },
   computed: {},
-  mounted () {},
+  mounted () {
+  },
   methods: {
     onClickOrder (e) {
       this.$router.push({
@@ -110,8 +120,22 @@ export default {
         }
       })
     },
+    getToken (code) {
+      window.location.replace(`https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx54d6bcf1415974fb&secret=SECRET&code=${code}&grant_type=authorization_code`)
+    },
+    getUserInfo () {
+      window.location.replace(`https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN`)
+    },
     loginOut () {
-      this.is_login = !this.is_login
+      if (!this.is_login) {
+        const url = encodeURIComponent('https://wa.cihangca.com/#/my')
+        window.location.replace(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx54d6bcf1415974fb&redirect_uri=` + url + `&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`)
+        // this.resultQuery = JSON.stringify(this.$route.query)
+        // this.resultParam = JSON.stringify(this.$route.params)
+        this.is_login = true
+        return
+      }
+      this.is_login = false
     },
     register () {
 
