@@ -149,10 +149,10 @@ export default {
     },
     getToken (code) {
       // const response = window.location.replace(`https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx54d6bcf1415974fb&secret=07f9a553a3922cbf079a41df861e67df&code=${code}&grant_type=authorization_code`)
-      Toast({
-        message: 'token',
-        duration: 5000
-      })
+      // Toast({
+      //   message: 'token',
+      //   duration: 5000
+      // })
       // window.location.href = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx54d6bcf1415974fb&secret=07f9a553a3922cbf079a41df861e67df&code=' + code + '&grant_type=authorization_code'
       // axios.create({
       //   baseURL: 'https://api.weixin.qq.com',
@@ -181,7 +181,15 @@ export default {
         url: 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx54d6bcf1415974fb&secret=07f9a553a3922cbf079a41df861e67df&code=' + code + '&grant_type=authorization_code',
         params: {}
       }).then(res => {
-        Toast(res)
+        Toast({
+          message: JSON.stringify(res),
+          duration: 5000
+        })
+      }).catch(err => {
+        Toast({
+          message: JSON.stringify(err),
+          duration: 5000
+        })
       })
     },
     getUserInfo () {
