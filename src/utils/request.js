@@ -8,7 +8,7 @@ const token = localStorage.getItem('token')
 const serve = axios.create({
   // basic url
   // baseURL: 'http://dev.axzo.cn:4601', // 测试
-  baseURL: 'http://dev.axzo.cn:4680', // 本地
+  baseURL: 'http://192.168.51.53:9001', // 本地
   // baseURL: 'https://bpo.7yida.com:446', // 线上
 
   // 超时时间
@@ -16,8 +16,10 @@ const serve = axios.create({
   // withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
     'token': token || ''
-  }
+  },
+  dataType: 'jsonp'
 })
 
 serve.interceptors.request.use(

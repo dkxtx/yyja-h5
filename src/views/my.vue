@@ -90,8 +90,9 @@
 
 <script>
 import { Toast } from 'vant'
-// import axios from 'axios'
+import axios from 'axios'
 import $ from 'jquery'
+import {getAccessToken} from '../api/api'
 
 export default {
   data () {
@@ -124,6 +125,12 @@ export default {
   },
   computed: {},
   mounted () {
+    // this.getToken()
+    getAccessToken().then(result => {
+      console.log(result)
+    }).catch(err => {
+      console.log(err)
+    })
     // this.resultPath2 = window.location.href
     // if (window.location.href.indexOf('?') !== -1) {
     //   const url = window.location.href
@@ -198,8 +205,9 @@ export default {
       // })
 
       $.ajax({
+        url: 'http://192.168.51.53:9001/wawy/user/wx/accesstoken',
         // url: ' https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx54d6bcf1415974fb&secret=07f9a553a3922cbf079a41df861e67df',
-        url: 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx54d6bcf1415974fb&secret=07f9a553a3922cbf079a41df861e67df&code=' + code + '&grant_type=authorization_code',
+        // url: 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx54d6bcf1415974fb&secret=07f9a553a3922cbf079a41df861e67df&code=' + code + '&grant_type=authorization_code',
         type: 'get',
         // dataType: 'jsonp',
         dataType: 'jsonp',

@@ -1,5 +1,14 @@
 import axios from '@/utils/request'
-
+/**
+ * 获取access_token
+ */
+export function getAccessToken (params) {
+  return axios({
+    url: '/wawy/user/wx/accesstoken',
+    method: 'get',
+    params
+  })
+}
 // export function login (data) {
 //   return axios({
 //     url: '/user/login',
