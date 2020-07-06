@@ -91,6 +91,7 @@
 <script>
 import { Toast } from 'vant'
 import axios from 'axios'
+import $ from 'jquery'
 
 export default {
   data () {
@@ -119,6 +120,7 @@ export default {
       this.code = code
       this.getToken(code)
     }
+    // this.getToken('023KxfGb06PaQy1xQOGb0kuXFb0KxfGv')
   },
   computed: {},
   mounted () {
@@ -172,25 +174,75 @@ export default {
       //     // this.error = JSON.stringify(error)
       //   })
 
-      axios({
-        method: 'get',
-        headers: {
-          'Access-Control-Allow-Origin': '*'
-        },
+      // axios({
+      //   method: 'get',
+      //   headers: {
+      //     'Access-Control-Allow-Origin': '*'
+      //   },
+      //   dataType: 'jsonp',
+      //   jsonp: 'callback',
+      //   jsonpCallback: 'jsonpCallback',
+      //   url: ' https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx54d6bcf1415974fb&secret=07f9a553a3922cbf079a41df861e67df',
+      //   // url: 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx54d6bcf1415974fb&secret=07f9a553a3922cbf079a41df861e67df&code=' + code + '&grant_type=authorization_code',
+      //   params: {}
+      // }).then(res => {
+      //   Toast({
+      //     message: JSON.stringify(res),
+      //     duration: 5000
+      //   })
+      // }).catch(err => {
+      //   Toast({
+      //     message: JSON.stringify(err),
+      //     duration: 5000
+      //   })
+      // })
 
-        url: 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx54d6bcf1415974fb&secret=07f9a553a3922cbf079a41df861e67df&code=' + code + '&grant_type=authorization_code',
-        params: {}
-      }).then(res => {
-        Toast({
-          message: JSON.stringify(res),
-          duration: 5000
-        })
-      }).catch(err => {
-        Toast({
-          message: JSON.stringify(err),
-          duration: 5000
-        })
+      $.ajax({
+        url: ' https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx54d6bcf1415974fb&secret=07f9a553a3922cbf079a41df861e67df',
+        // url: 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx54d6bcf1415974fb&secret=07f9a553a3922cbf079a41df861e67df&code=' + code + '&grant_type=authorization_code',
+        type: 'get',
+        // dataType: 'jsonp',
+        dataType: 'jsonp',
+        jsonp: 'callback',
+        jsonpCallback: 'jsonpCallback',
+        beforeSend: function () {
+          console.log('努力查询中，请稍后')
+          Toast({
+            message: '努力查询中，请稍后',
+            duration: 500
+          })
+        },
+        success: function (data) {
+          console.log(data)
+          Toast({
+            message: JSON.stringify(data),
+            duration: 5000
+          })
+        },
+        error: function (err) {
+          console.log('查询失败')
+          Toast({
+            message: JSON.stringify(err),
+            duration: 5000
+          })
+        }
       })
+
+      // var target = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx54d6bcf1415974fb&secret=07f9a553a3922cbf079a41df861e67df&code=' + code + '&grant_type=authorization_code'
+      // $.ajax({// 2.通过code换取网页授权access_token
+      //   url: 'http://query.yahooapis.com/v1/public/yql', // 雅虎代理url
+      //   dataType: 'jsonp', // 雅虎代理数据格式
+      //   data: {
+      //     q: "select * from json where url=\'" + target + "'",
+      //     // 代理返回格式
+      //     format: 'json'
+      //   },
+      //   success: function (data) {
+      //     alert('请求成功')
+      //     alert('openid:' + data.query.results.json.openid)
+      //     console.log('openid:' + data.query.results.json.openid)
+      //   }
+      // })
     },
     getUserInfo () {
       window.location.replace(`https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN`)
