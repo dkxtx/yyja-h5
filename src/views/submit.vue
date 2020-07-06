@@ -115,7 +115,7 @@ export default {
       var param = {
         id: this.item.id,
         count: this.goodsCount
-      };
+      }
       console.log(param)
       Toast.loading({
         message: '加载中...',

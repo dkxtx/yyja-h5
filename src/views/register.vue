@@ -13,12 +13,12 @@
 <script>
 export default {
   components: {},
-  data() {
+  data () {
     return {
-      phone: ""
-    };
+      phone: ''
+    }
   }
-};
+}
 </script>
 
 <style>
