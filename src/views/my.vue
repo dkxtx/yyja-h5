@@ -198,8 +198,8 @@ export default {
       // })
 
       $.ajax({
-        url: ' https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx54d6bcf1415974fb&secret=07f9a553a3922cbf079a41df861e67df',
-        // url: 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx54d6bcf1415974fb&secret=07f9a553a3922cbf079a41df861e67df&code=' + code + '&grant_type=authorization_code',
+        // url: ' https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx54d6bcf1415974fb&secret=07f9a553a3922cbf079a41df861e67df',
+        url: 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx54d6bcf1415974fb&secret=07f9a553a3922cbf079a41df861e67df&code=' + code + '&grant_type=authorization_code',
         type: 'get',
         // dataType: 'jsonp',
         dataType: 'jsonp',
