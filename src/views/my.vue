@@ -90,7 +90,7 @@
 
 <script>
 import { Toast } from 'vant'
-import axios from 'axios'
+// import axios from 'axios'
 import $ from 'jquery'
 
 export default {
