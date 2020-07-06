@@ -215,14 +215,14 @@ export default {
         success: function (data) {
           console.log(data)
           Toast({
-            message: JSON.stringify(data),
+            message: 'success' + JSON.stringify(data),
             duration: 5000
           })
         },
         error: function (err) {
           console.log('查询失败')
           Toast({
-            message: JSON.stringify(err),
+            message: '查询失败' + JSON.stringify(err),
             duration: 5000
           })
         }
