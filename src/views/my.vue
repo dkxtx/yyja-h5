@@ -91,37 +91,37 @@
 // import * as Common from '@/api/api'
 
 export default {
-  data() {
+  data () {
     return {
       is_login: true,
       user_info: {
-        name: "张劲松"
+        name: '张劲松'
       }
-    };
+    }
   },
   computed: {},
-  mounted() {},
+  mounted () {},
   methods: {
-    onClickOrder(e) {
+    onClickOrder (e) {
       this.$router.push({
-        name: "order",
+        name: 'order',
         params: {
           option: e
         }
-      });
-    },
-    loginOut() {
-      this.is_login = !this.is_login;
+      })
     },
     loginOut () {
       this.is_login = !this.is_login
+    },
+    register () {
+
     },
     onClickMyWallet () {
       window.location.href = 'https://yyja.bzamo.com/#/'
     },
     onClickMyHouse () {}
   }
-};
+}
 </script>
 
 <style scoped>
