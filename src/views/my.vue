@@ -88,7 +88,8 @@
 </template>
 
 <script>
-// import { Toast } from 'vant'
+import { Toast } from 'vant'
+import axios from 'axios'
 
 export default {
   data () {
@@ -121,7 +122,22 @@ export default {
       })
     },
     getToken (code) {
-      window.location.replace(`https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx54d6bcf1415974fb&secret=SECRET&code=${code}&grant_type=authorization_code`)
+      // const response = window.location.replace(`https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx54d6bcf1415974fb&secret=07f9a553a3922cbf079a41df861e67df&code=${code}&grant_type=authorization_code`)
+      axios.create({
+        baseURL: 'https://api.weixin.qq.com',
+        timeout: 1000,
+        headers: {'X-Custom-Header': 'foobar'}
+      })
+      axios.get(`/sns/oauth2/access_token?appid=wx54d6bcf1415974fb&secret=07f9a553a3922cbf079a41df861e67df&code=${code}&grant_type=authorization_code`)
+        .then((response) => {
+          // this.response = JSON.stringify(response)
+
+          Toast(response)
+        })
+        .catch((error) => {
+          console.log(error)
+          // this.error = JSON.stringify(error)
+        })
     },
     getUserInfo () {
       window.location.replace(`https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN`)
