@@ -2,10 +2,10 @@
   <div class="container">
     <van-nav-bar title="我的" />
     <div class="header_box" style="padding-bottom:20px;" @click="register">
-      <img class="header_logo" v-if="is_login" :src="user_info.headimgurl" alt />
+      <img class="header_logo" v-if="is_login" :src="user_info.user.headimgurl" alt />
       <img class="header_logo" v-else src="../../images/icon-user@2x.png" alt />
       <div class="center_box" v-if="is_login">
-        <div class="header_text">{{user_info.nickname}}</div>
+        <div class="header_text">{{user_info.user.nickname}}</div>
         <div class="label_text" style="width:33px;">业主</div>
       </div>
       <div class="center_box" v-else>
@@ -66,26 +66,26 @@
       </div>
     </div>
     <div class="line" style="height:40px"></div>
-    <!-- <div class="list_box">
+    <div class="list_box">
       <div class="box">
-        <img class="box_icon" src="../../images/icon-wdbx@2x.png" alt />
-        <div class="box_title">我的报修</div>
+        <img class="box_icon" src="../../images/icon-tuijian@2x.png" alt />
+        <div class="box_title">为你推荐</div>
+        <img class="box_arrow" src="../../images/arrow.png" alt srcset />
+      </div>
+      <div class="box" @click="onClickFeedBack">
+        <img class="box_icon" src="../../images/icon-yjfk@2x.png" alt />
+        <div class="box_title">意见反馈</div>
         <img class="box_arrow" src="../../images/arrow.png" alt srcset />
       </div>
       <div class="box">
-        <img class="box_icon" src="../../images/icon-wdjf@2x.png" alt />
-        <div class="box_title">我的账单</div>
-        <img class="box_arrow" src="../../images/arrow.png" alt srcset />
-      </div>
-      <div class="box">
-        <img class="box_icon" src="../../images/icon-gy@2x.png" alt />
-        <div class="box_title">关于</div>
+        <img class="box_icon" src="../../images/icon-bmhm1@2x.png" alt />
+        <div class="box_title">客服电话</div>
         <img class="box_arrow" src="../../images/arrow.png" alt srcset />
       </div>
     </div>
-    <div class="line" style="height:40px"></div>-->
+    <div class="line" style="height:40px"></div>
     <button class="login-out-class" @click="loginOut">{{is_login==true?'退出登录':'登录/注册'}}</button>
-    <div>{{JSON.stringify(user_info)}}</div>
+    <!-- <div>{{JSON.stringify(user_info)}}</div> -->
   </div>
 </template>
 
@@ -127,12 +127,13 @@ export default {
       axios.post('https://sc.bzamo.com/wawy/user/wx/accesstoken', data)
         .then((response) => {
           this.user_info = response.data.data
-          Toast({
-            message: JSON.stringify(response.data.data),
-            duration: 10000
-          })
+          // Toast({
+          //   message: JSON.stringify(response.data.data),
+          //   duration: 10000
+          // })
           this.is_login = true
-          localStorage.setItem('user_info', this.user_info)
+          localStorage.setItem('user_info', this.user_info.user)
+          localStorage.setItem('token', this.user_info.token)
         })
         .catch((error) => {
           Toast(JSON.stringify(error))
@@ -142,6 +143,7 @@ export default {
       if (localStorage.getItem('user_info') !== null) {
         this.is_login = false
         localStorage.removeItem('user_info')
+        localStorage.removeItem('token')
         return
       }
       if (!this.is_login) {
@@ -157,7 +159,12 @@ export default {
     onClickMyWallet () {
       window.location.href = 'https://yyja.bzamo.com/#/'
     },
-    onClickMyHouse () {}
+    onClickMyHouse () {},
+    onClickFeedBack () {
+      this.$router.push({
+        name: 'feedback'
+      })
+    }
   }
 }
 </script>
@@ -187,6 +194,7 @@ export default {
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
   color: rgba(0, 0, 0, 1);
+  text-align: left;
 }
 
 .label_text {
@@ -268,6 +276,7 @@ export default {
   font-weight: 400;
   color: rgba(36, 36, 36, 1);
   flex: 1;
+  text-align: left;
 }
 
 .news-nav-icon {
@@ -329,6 +338,7 @@ export default {
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
   color: rgba(36, 36, 36, 1);
+   text-align: left;
 }
 
 .box_arrow {
