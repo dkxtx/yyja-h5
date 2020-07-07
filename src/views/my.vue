@@ -65,7 +65,7 @@
         <div class="icon_text">已完成</div>
       </div>
     </div>
-    <div class="line" style="height:40px"></div>
+    <div class="line" style="height:10px"></div>
     <div class="list_box">
       <div class="box" @click="onClickRecommend">
         <img class="box_icon" src="../../images/icon-tuijian@2x.png" alt />
@@ -84,14 +84,14 @@
         <img class="box_arrow" src="../../images/arrow.png" alt srcset />
       </div>
     </div>
-    <div class="line" style="height:40px"></div>
+    <div class="line" style="height:10px"></div>
     <button class="login-out-class" @click="loginOut">{{is_login==true?'退出登录':'登录/注册'}}</button>
     <!-- <div>{{JSON.stringify(user_info)}}</div> -->
   </div>
 </template>
 
 <script>
-import { Toast } from 'vant'
+// import { Toast } from 'vant'
 import axios from 'axios'
 
 export default {
@@ -125,19 +125,19 @@ export default {
       let data = {
         code: code
       }
-      axios.post('https://sc.bzamo.com/wawy/user/wx/accesstoken', data)
-        .then((response) => {
-          this.user_info = response.data.data
-          // Toast({
-          //   message: JSON.stringify(response.data.data),
-          //   duration: 10000
-          // })
-          this.is_login = true
-          localStorage.setItem('user_info', this.user_info.user)
-          localStorage.setItem('token', this.user_info.token)
-        })
+      axios.post('https://sc.bzamo.com/wawy/user/wx/accesstoken', data).then((response) => {
+        this.user_info = response.data.data
+        // Toast({
+        //   message: JSON.stringify(response.data.data),
+        //   duration: 10000
+        // })
+        this.is_login = true
+        localStorage.setItem('user_info', this.user_info.user)
+        localStorage.setItem('token', this.user_info.token)
+      })
         .catch((error) => {
-          Toast(JSON.stringify(error))
+          // Toast(JSON.stringify(error))
+          console.log(error)
         })
     },
     loginOut () {
@@ -167,7 +167,12 @@ export default {
       })
     },
     onClickRecommend () {
-      this.$router.push({ path: '/home' })
+      this.$router.push({
+        path: '/home',
+        query: {
+          data: 'from_my'
+        }
+      })
     },
     onClickServicePhone () {
 

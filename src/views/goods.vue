@@ -15,7 +15,7 @@
         <div class="detail_count">销量 {{goodData.sales}}</div>
         <div class="detail_fee">
           <div class="fee">￥ {{goodData.price}}</div>
-          <button class="pay_btn" @click="surePay">立即支付</button>
+          <button class="pay_btn" @click="surePay">立即购买</button>
         </div>
       </div>
     </div>
@@ -84,6 +84,7 @@ export default {
 .goods_page {
   width: 100%;
   height: 100%;
+  margin-bottom: 100px;
 }
 
 .lunbo_img {
