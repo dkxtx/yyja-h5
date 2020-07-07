@@ -2,9 +2,10 @@
   <div class="container">
     <van-nav-bar title="我的" />
     <div class="header_box" style="padding-bottom:20px;" @click="register">
-      <img class="header_logo" src="../../images/icon-user@2x.png" alt />
+      <img class="header_logo" v-if="is_login" :src="user_info.headimgurl" alt />
+      <img class="header_logo" v-else src="../../images/icon-user@2x.png" alt />
       <div class="center_box" v-if="is_login">
-        <div class="header_text">{{user_info.name}}</div>
+        <div class="header_text">{{user_info.nickname}}</div>
         <div class="label_text" style="width:33px;">业主</div>
       </div>
       <div class="center_box" v-else>
@@ -13,7 +14,7 @@
       <!-- <img class="set_icon" src="../../images/icon-sz@2x.png" alt /> -->
     </div>
 
-    <div class="boarder"  v-if="is_login">
+    <!-- <div class="boarder" v-if="is_login">
       <div class="boarder-item" @click="onClickMyHouse">
         <div style="margin-top:10px">
           <img src="@/../images/icon-wdxq@2x.png" style="width:16px;height:16px" alt="">
@@ -28,7 +29,8 @@
         </div>
         <div style="font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(198,172,119,1);margin-top:5px">0.00元</div>
       </div>
-    </div>
+    </div> -->
+
     <!-- <div v-if="is_login" class="location_box">
       <div class="header-location">
         <img class="location_icon" src="../../images/icon-dw@2x.png" />
@@ -83,69 +85,53 @@
     </div>
     <div class="line" style="height:40px"></div>-->
     <button class="login-out-class" @click="loginOut">{{is_login==true?'退出登录':'登录/注册'}}</button>
-    <div>{{resultPath2}}</div>
+    <!-- <div>{{resultPath2}}</div>
     <div>{{code}}</div>
+    <div>{{firstToken}}</div> -->
   </div>
 </template>
 
 <script>
 import { Toast } from 'vant'
 import axios from 'axios'
-import $ from 'jquery'
-import {getAccessToken} from '../api/api'
+// import $ from 'jquery'
+// import {getAccessToken} from '../api/api'
 
 export default {
   data () {
     return {
       is_login: false,
-      user_info: {
-        name: '张劲松'
-      },
-      resultPath2: '',
-      code: ''
+      user_info: {}
+      // resultPath2: '',
+      // code: '',
+      // firstToken: ''
     }
   },
   created () {
-    this.resultPath2 = window.location.href
+    // this.resultPath2 = window.location.href
     if (window.location.href.indexOf('?') !== -1) {
       const url = window.location.href
-      Toast({
-        message: url,
-        duration: 5000
-      })
+      // Toast({
+      //   message: url,
+      //   duration: 5000
+      // })
       const code = url.substring(url.indexOf('?') + 1, url.indexOf('#')).split('&')[0].split('=')[1]
-      Toast({
-        message: code,
-        duration: 10000
-      })
+      // Toast({
+      //   message: code,
+      //   duration: 10000
+      // })
       this.code = code
       this.getToken(code)
     }
-    // this.getToken('023KxfGb06PaQy1xQOGb0kuXFb0KxfGv')
   },
   computed: {},
   mounted () {
     // this.getToken()
-    getAccessToken().then(result => {
-      console.log(result)
-    }).catch(err => {
-      console.log(err)
-    })
-    // this.resultPath2 = window.location.href
-    // if (window.location.href.indexOf('?') !== -1) {
-    //   const url = window.location.href
-    //   Toast({
-    //     message: url,
-    //     duration: 5000
-    //   })
-    //   const code = url.substring(url.indexOf('?') + 1, url.indexOf('#')).split('&')[0].split('=')[1]
-    //   Toast({
-    //     message: code,
-    //     duration: 5000
-    //   })
-    //   this.code = code
-    //   this.getToken(code)
-    // }
+    // getAccessToken().then(result => {
+    //   console.log(result)
+    // }).catch(err => {
+    //   console.log(err)
+    // })
   },
   methods: {
     onClickOrder (e) {
@@ -157,98 +143,49 @@ export default {
       })
     },
     getToken (code) {
-      // const response = window.location.replace(`https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx54d6bcf1415974fb&secret=07f9a553a3922cbf079a41df861e67df&code=${code}&grant_type=authorization_code`)
-      // Toast({
-      //   message: 'token',
-      //   duration: 5000
-      // })
-      // window.location.href = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx54d6bcf1415974fb&secret=07f9a553a3922cbf079a41df861e67df&code=' + code + '&grant_type=authorization_code'
-      // axios.create({
-      //   baseURL: 'https://api.weixin.qq.com',
-      //   timeout: 1000,
-      //   headers: {'X-Custom-Header': 'foobar', 'Access-Control-Allow-Origin': '*'},
-      //   xhrFields: {
-      //     withCredentials: false
-      //   }
-      // })
-      // axios.get('https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx54d6bcf1415974fb&secret=07f9a553a3922cbf079a41df861e67df&code=' + code + '&grant_type=authorization_code')
-      //   .then((response) => {
-      //     // this.response = JSON.stringify(response)
-      //     Toast(response)
-      //   })
-      //   .catch((error) => {
-      //     console.log(error)
-      //     // this.error = JSON.stringify(error)
-      //   })
+      // Toast(`getToken code${code}`)
+      let data = {
+        code: code
+      }
+      axios.post('https://sc.bzamo.com/wawy/user/wx/accesstoken', data)
+        .then((response) => {
+          this.user_info = response.data.data
+          this.is_login = true
+          localStorage.setItem('user_info', this.user_info)
+        })
+        .catch((error) => {
+          Toast(JSON.stringify(error))
+        })
 
-      // axios({
-      //   method: 'get',
-      //   headers: {
-      //     'Access-Control-Allow-Origin': '*'
-      //   },
+      // $.ajax({
+      //   url: 'http://192.168.51.53:9001/wawy/user/wx/accesstoken',
+      //   // url: ' https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx54d6bcf1415974fb&secret=07f9a553a3922cbf079a41df861e67df',
+      //   // url: 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx54d6bcf1415974fb&secret=07f9a553a3922cbf079a41df861e67df&code=' + code + '&grant_type=authorization_code',
+      //   type: 'post',
+      //   // dataType: 'jsonp',
       //   dataType: 'jsonp',
       //   jsonp: 'callback',
       //   jsonpCallback: 'jsonpCallback',
-      //   url: ' https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx54d6bcf1415974fb&secret=07f9a553a3922cbf079a41df861e67df',
-      //   // url: 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx54d6bcf1415974fb&secret=07f9a553a3922cbf079a41df861e67df&code=' + code + '&grant_type=authorization_code',
-      //   params: {}
-      // }).then(res => {
-      //   Toast({
-      //     message: JSON.stringify(res),
-      //     duration: 5000
-      //   })
-      // }).catch(err => {
-      //   Toast({
-      //     message: JSON.stringify(err),
-      //     duration: 5000
-      //   })
-      // })
-
-      $.ajax({
-        url: 'http://192.168.51.53:9001/wawy/user/wx/accesstoken',
-        // url: ' https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx54d6bcf1415974fb&secret=07f9a553a3922cbf079a41df861e67df',
-        // url: 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx54d6bcf1415974fb&secret=07f9a553a3922cbf079a41df861e67df&code=' + code + '&grant_type=authorization_code',
-        type: 'get',
-        // dataType: 'jsonp',
-        dataType: 'jsonp',
-        jsonp: 'callback',
-        jsonpCallback: 'jsonpCallback',
-        beforeSend: function () {
-          console.log('努力查询中，请稍后')
-          Toast({
-            message: '努力查询中，请稍后',
-            duration: 500
-          })
-        },
-        success: function (data) {
-          console.log(data)
-          Toast({
-            message: 'success' + JSON.stringify(data),
-            duration: 5000
-          })
-        },
-        error: function (err) {
-          console.log('查询失败')
-          Toast({
-            message: '查询失败' + JSON.stringify(err),
-            duration: 5000
-          })
-        }
-      })
-
-      // var target = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx54d6bcf1415974fb&secret=07f9a553a3922cbf079a41df861e67df&code=' + code + '&grant_type=authorization_code'
-      // $.ajax({// 2.通过code换取网页授权access_token
-      //   url: 'http://query.yahooapis.com/v1/public/yql', // 雅虎代理url
-      //   dataType: 'jsonp', // 雅虎代理数据格式
-      //   data: {
-      //     q: "select * from json where url=\'" + target + "'",
-      //     // 代理返回格式
-      //     format: 'json'
+      //   beforeSend: function () {
+      //     console.log('努力查询中，请稍后')
+      //     Toast({
+      //       message: '努力查询中，请稍后',
+      //       duration: 500
+      //     })
       //   },
       //   success: function (data) {
-      //     alert('请求成功')
-      //     alert('openid:' + data.query.results.json.openid)
-      //     console.log('openid:' + data.query.results.json.openid)
+      //     console.log(data)
+      //     Toast({
+      //       message: 'success' + JSON.stringify(data),
+      //       duration: 5000
+      //     })
+      //   },
+      //   error: function (err) {
+      //     console.log('查询失败')
+      //     Toast({
+      //       message: '查询失败' + JSON.stringify(err),
+      //       duration: 5000
+      //     })
       //   }
       // })
     },
@@ -256,12 +193,13 @@ export default {
       window.location.replace(`https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN`)
     },
     loginOut () {
+      if (localStorage.getItem('user_info') !== undefined || localStorage.getItem('user_info') !== null) {
+        this.is_login = !this.is_login
+        return
+      }
       if (!this.is_login) {
         const url = encodeURIComponent('https://wa.cihangca.com/#/my')
         window.location.replace(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx54d6bcf1415974fb&redirect_uri=` + url + `&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`)
-        // this.resultQuery = JSON.stringify(this.$route.query)
-        // this.resultParam = JSON.stringify(this.$route.params)
-        this.is_login = true
         return
       }
       this.is_login = false
@@ -289,6 +227,7 @@ export default {
 .header_logo {
   width: 56px;
   height: 56px;
+  border-radius: 50px;
 }
 
 .center_box {
