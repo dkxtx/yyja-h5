@@ -85,53 +85,30 @@
     </div>
     <div class="line" style="height:40px"></div>-->
     <button class="login-out-class" @click="loginOut">{{is_login==true?'退出登录':'登录/注册'}}</button>
-    <!-- <div>{{resultPath2}}</div>
-    <div>{{code}}</div>
-    <div>{{firstToken}}</div> -->
   </div>
 </template>
 
 <script>
 import { Toast } from 'vant'
 import axios from 'axios'
-// import $ from 'jquery'
-// import {getAccessToken} from '../api/api'
 
 export default {
   data () {
     return {
       is_login: false,
       user_info: {}
-      // resultPath2: '',
-      // code: '',
-      // firstToken: ''
     }
   },
   created () {
-    // this.resultPath2 = window.location.href
     if (window.location.href.indexOf('?') !== -1) {
       const url = window.location.href
-      // Toast({
-      //   message: url,
-      //   duration: 5000
-      // })
       const code = url.substring(url.indexOf('?') + 1, url.indexOf('#')).split('&')[0].split('=')[1]
-      // Toast({
-      //   message: code,
-      //   duration: 10000
-      // })
       this.code = code
       this.getToken(code)
     }
   },
   computed: {},
   mounted () {
-    // this.getToken()
-    // getAccessToken().then(result => {
-    //   console.log(result)
-    // }).catch(err => {
-    //   console.log(err)
-    // })
   },
   methods: {
     onClickOrder (e) {
@@ -143,7 +120,6 @@ export default {
       })
     },
     getToken (code) {
-      // Toast(`getToken code${code}`)
       let data = {
         code: code
       }
@@ -156,45 +132,11 @@ export default {
         .catch((error) => {
           Toast(JSON.stringify(error))
         })
-
-      // $.ajax({
-      //   url: 'http://192.168.51.53:9001/wawy/user/wx/accesstoken',
-      //   // url: ' https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx54d6bcf1415974fb&secret=07f9a553a3922cbf079a41df861e67df',
-      //   // url: 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx54d6bcf1415974fb&secret=07f9a553a3922cbf079a41df861e67df&code=' + code + '&grant_type=authorization_code',
-      //   type: 'post',
-      //   // dataType: 'jsonp',
-      //   dataType: 'jsonp',
-      //   jsonp: 'callback',
-      //   jsonpCallback: 'jsonpCallback',
-      //   beforeSend: function () {
-      //     console.log('努力查询中，请稍后')
-      //     Toast({
-      //       message: '努力查询中，请稍后',
-      //       duration: 500
-      //     })
-      //   },
-      //   success: function (data) {
-      //     console.log(data)
-      //     Toast({
-      //       message: 'success' + JSON.stringify(data),
-      //       duration: 5000
-      //     })
-      //   },
-      //   error: function (err) {
-      //     console.log('查询失败')
-      //     Toast({
-      //       message: '查询失败' + JSON.stringify(err),
-      //       duration: 5000
-      //     })
-      //   }
-      // })
-    },
-    getUserInfo () {
-      window.location.replace(`https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN`)
     },
     loginOut () {
-      if (localStorage.getItem('user_info') !== undefined || localStorage.getItem('user_info') !== null) {
-        this.is_login = !this.is_login
+      if (localStorage.getItem('user_info') !== null) {
+        this.is_login = false
+        localStorage.removeItem('user_info')
         return
       }
       if (!this.is_login) {
