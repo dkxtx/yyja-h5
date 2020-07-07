@@ -24,7 +24,7 @@
 <script>
 // import { Toast } from 'vant'
 // import { Toast } from 'vant'
-// import * as Common from '@/api/api'
+import * as Common from '@/api/api'
 
 export default {
   data () {
@@ -32,22 +32,22 @@ export default {
       latitude: '',
       longitude: '',
       store_list: [
-        {
-          address: '天府三街迈普大厦',
-          city: '成都',
-          created: '2020-04-01T15:22:51+08:00',
-          district: '武侯区',
-          end_time: '22:00',
-          id: 1,
-          latitude: 30.588447,
-          logo: 'https://gd1.alicdn.com/imgextra/i1/165218339/O1CN01NpYs7K2BTJOHVPKqr_!!165218339.jpg_400x400.jpg',
-          longitude: 104.111426,
-          name: '好利来',
-          pc_id: 1,
-          phone: "'18583750607",
-          province: '四川',
-          start_time: '7:00'
-        }
+        // {
+        //   address: '天府三街迈普大厦',
+        //   city: '成都',
+        //   created: '2020-04-01T15:22:51+08:00',
+        //   district: '武侯区',
+        //   end_time: '22:00',
+        //   id: 1,
+        //   latitude: 30.588447,
+        //   logo: 'https://gd1.alicdn.com/imgextra/i1/165218339/O1CN01NpYs7K2BTJOHVPKqr_!!165218339.jpg_400x400.jpg',
+        //   longitude: 104.111426,
+        //   name: '好利来',
+        //   pc_id: 1,
+        //   phone: "'18583750607",
+        //   province: '四川',
+        //   start_time: '7:00'
+        // }
       ]
     }
   },
@@ -59,8 +59,16 @@ export default {
     // window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + AppId + '&redirect_uri=' + encodeURIComponent(local) + 'response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
     // console.log(this.$route.query.data)
     // Toast(this.$route)
+    this.getStores()
   },
   methods: {
+    getStores () {
+      Common.userStores().then(result => {
+        console.log(result)
+      }).catch(err => {
+        console.log(err)
+      })
+    },
     onClickStore (store) {
       this.$router.push({
         path: '/store',

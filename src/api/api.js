@@ -1,10 +1,18 @@
 import axios from '@/utils/request'
-/**
- * 获取access_token
- */
+
+/** * 获取access_token */
 export function getAccessToken (params) {
   return axios({
     url: '/wawy/user/wx/accesstoken',
+    method: 'get',
+    params
+  })
+}
+
+/** * 获取店铺列表 */
+export function userStores (params) {
+  return axios({
+    url: '/wawy/user/stores',
     method: 'get',
     params
   })

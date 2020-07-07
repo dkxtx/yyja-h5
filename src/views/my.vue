@@ -2,11 +2,11 @@
   <div class="container">
     <van-nav-bar title="我的" />
     <div class="header_box" style="padding-bottom:20px;" @click="register">
-      <img class="header_logo" v-if="is_login" :src="user_info.user.headimgurl" alt />
+      <img class="header_logo" v-if="is_login" :src="user_info.user.avatar" alt />
       <img class="header_logo" v-else src="../../images/icon-user@2x.png" alt />
       <div class="center_box" v-if="is_login">
-        <div class="header_text">{{user_info.user.nickname}}</div>
-        <div class="label_text" style="width:33px;">业主</div>
+        <div class="header_text">{{user_info.user.nick_name}}</div>
+        <!-- <div class="label_text" style="width:33px;">业主</div> -->
       </div>
       <div class="center_box" v-else>
         <div class="header_text">登录/注册</div>
