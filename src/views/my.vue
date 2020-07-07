@@ -85,6 +85,7 @@
     </div>
     <div class="line" style="height:40px"></div>-->
     <button class="login-out-class" @click="loginOut">{{is_login==true?'退出登录':'登录/注册'}}</button>
+    <div>{{JSON.stringify(user_info)}}</div>
   </div>
 </template>
 
@@ -126,6 +127,10 @@ export default {
       axios.post('https://sc.bzamo.com/wawy/user/wx/accesstoken', data)
         .then((response) => {
           this.user_info = response.data.data
+          Toast({
+            message: JSON.stringify(response.data.data),
+            duration: 10000
+          })
           this.is_login = true
           localStorage.setItem('user_info', this.user_info)
         })
