@@ -10,11 +10,11 @@
         </van-swipe>
       </div>
       <div class="goodDetail">
-        <div class="detail_title">10英寸水果蛋糕</div>
-        <div class="detail_content">白色浪漫、四重奏、交响乐团、粉红豹</div>
-        <div class="detail_count">销量 233</div>
+        <div class="detail_title">{{goodData.name}}</div>
+        <div class="detail_content">{{goodData.intro}}</div>
+        <div class="detail_count">销量 {{goodData.sales}}</div>
         <div class="detail_fee">
-          <div class="fee">￥45</div>
+          <div class="fee">￥ {{goodData.price}}</div>
           <button class="pay_btn" @click="surePay">立即支付</button>
         </div>
       </div>
@@ -36,33 +36,39 @@ export default {
   data () {
     return {
       goodData: {},
-      pageData: ''
+      pageData: '',
+      store: {}
     }
   },
   computed: {},
   created () {
     this.goodData = this.$route.query.data
-    if (localStorage.getItem('pageData')) {
-      this.pageData = localStorage.getItem('pageData').replace(
-        /<img/g,
-        '<img style="width:100%;"'
-      )
-    } else {
-      localStorage.setItem('pageData', this.goodData.detail)
-      this.pageData = this.goodData.detail.replace(
-        /<img/g,
-        '<img style="width:100%;"'
-      )
-    }
+    // console.log(JSON.stringify(this.goodData))
+    // if (localStorage.getItem('pageData')) {
+    this.pageData = this.goodData.detail.replace(
+      /<img/g,
+      '<img style="width:100%;"'
+    )
+    // } else {
+    //   localStorage.setItem('pageData', this.goodData.detail)
+    //   this.pageData = this.goodData.detail.replace(
+    //     /<img/g,
+    //     '<img style="width:100%;"'
+    //   )
+    // }
   },
   mounted () {
+    this.store = JSON.parse(this.$route.query.store)
     let page = this.$refs.goods_container
     page.innerHTML = this.pageData
   },
   methods: {
     onClickLeft () {
       this.$router.push({
-        name: 'store'
+        name: 'store',
+        query: {
+          data: JSON.stringify(this.store)
+        }
       })
     },
     surePay () {

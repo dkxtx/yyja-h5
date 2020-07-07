@@ -67,7 +67,7 @@
     </div>
     <div class="line" style="height:40px"></div>
     <div class="list_box">
-      <div class="box">
+      <div class="box" @click="onClickRecommend">
         <img class="box_icon" src="../../images/icon-tuijian@2x.png" alt />
         <div class="box_title">为你推荐</div>
         <img class="box_arrow" src="../../images/arrow.png" alt srcset />
@@ -77,9 +77,10 @@
         <div class="box_title">意见反馈</div>
         <img class="box_arrow" src="../../images/arrow.png" alt srcset />
       </div>
-      <div class="box">
+      <div class="box" @click="onClickServicePhone" :href="'tel:18583750607'">
         <img class="box_icon" src="../../images/icon-bmhm1@2x.png" alt />
-        <div class="box_title">客服电话</div>
+        <div class="box_title">
+           <a style="color: #333333;" :href="'tel:18583750607'">客服电话</a></div>
         <img class="box_arrow" src="../../images/arrow.png" alt srcset />
       </div>
     </div>
@@ -164,6 +165,12 @@ export default {
       this.$router.push({
         name: 'feedback'
       })
+    },
+    onClickRecommend () {
+      this.$router.push({ path: '/home' })
+    },
+    onClickServicePhone () {
+
     }
   }
 }

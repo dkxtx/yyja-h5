@@ -8,14 +8,17 @@ const token = localStorage.getItem('token')
 const serve = axios.create({
   // basic url
   // baseURL: 'http://dev.axzo.cn:4601', // 测试
-  baseURL: 'http://192.168.51.53:9001', // 本地
-  // baseURL: 'https://bpo.7yida.com:446', // 线上
+  // baseURL: 'http://192.168.51.53:9001', // 本地
+  baseURL: 'https://sc.bzamo.com', // 线上
 
   // 超时时间
   timeout: 60000,
-  // withCredentials: true,
+  withCredentials: true,
   headers: {
-    'Content-Type': 'application/json',
+    // 'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, DELETE',
+    // 'Access-Control-Max-Age': '3600',
+    // 'Access-Control-Allow-Headers': 'x-requested-with,Authorization,token, content-type',
+    // 'Access-Control-Allow-Credentials': 'true',
     'Access-Control-Allow-Origin': '*',
     'token': token || ''
   },

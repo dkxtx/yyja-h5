@@ -1,6 +1,7 @@
 
 <template>
   <div class="container">
+    <van-nav-bar title="意见反馈" left-arrow @click-left="onClickLeft"  />
     <div class="text_box">
       <!-- <textarea class="text_area" value="{{service}}" maxlength="500" placeholder="问题描述的越清楚越好喔" placeholder-class="text_placeholder" bindinput="textInp"></textarea> -->
       <van-field v-model="message" rows="5" autosize  type="textarea" placeholder="请输入留言" class="text_area"  :maxlength="500" show-word-limit/>
@@ -26,6 +27,11 @@ export default {
   methods: {
     sureSend () {
 
+    },
+    onClickLeft () {
+      this.$router.push({
+        name: 'my'
+      })
     }
   }
 }

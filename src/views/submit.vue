@@ -82,7 +82,7 @@ export default {
   },
   methods: {
     onClickLeft () {
-      this.$router.push({ path: '/goods' })
+      this.$router.push({ path: '/home' })
     },
     onClickMinus () {
       if (this.goodsCount === 1) {

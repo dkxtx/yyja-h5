@@ -40,55 +40,72 @@
 </template>
 
 <script>
-// import { Toast } from 'vant'
+import { Toast } from 'vant'
 // import * as Common from '@/api/api'
+import axios from 'axios'
 
 export default {
   data () {
     return {
       store: {
-        address: '天府三街迈普大厦',
-        city: '成都',
-        created: '2020-04-01T15:22:51+08:00',
-        district: '武侯区',
-        end_time: '22:00',
-        id: 1,
-        latitude: 30.588447,
-        logo: 'https://gd1.alicdn.com/imgextra/i1/165218339/O1CN01NpYs7K2BTJOHVPKqr_!!165218339.jpg_400x400.jpg',
-        longitude: 104.111426,
-        name: '好利来',
-        pc_id: 1,
-        phone: "'18583750607",
-        province: '四川',
-        start_time: '7:00'
+        // address: '天府三街迈普大厦',
+        // city: '成都',
+        // created: '2020-04-01T15:22:51+08:00',
+        // district: '武侯区',
+        // end_time: '22:00',
+        // id: 1,
+        // latitude: 30.588447,
+        // logo: 'https://gd1.alicdn.com/imgextra/i1/165218339/O1CN01NpYs7K2BTJOHVPKqr_!!165218339.jpg_400x400.jpg',
+        // longitude: 104.111426,
+        // name: '好利来',
+        // pc_id: 1,
+        // phone: "'18583750607",
+        // province: '四川',
+        // start_time: '7:00'
       },
       banners: [],
       goods_list: [
-        {
-          id: 1,
-          store_id: '1',
-          name: '10英寸水果蛋糕',
-          intro: '白色浪漫、四重奏、交响乐团、粉红豹',
-          detail:
-            '"<div class="MsgHistory"><img src="https://img.alicdn.com/imgextra/i4/165218339/O1CN01jkBtyc2BTJNQimS9J_!!165218339.jpg" align="absmiddle" data-spm-anchor-id="2013.1.0.i0.2e5b53fdtQxkr0" /></div>\n<div class="MsgHistory"><img src="https://img.alicdn.com/imgextra/i1/165218339/O1CN010bbCzd2BTJOEEnPRv_!!165218339.jpg" align="absmiddle" /><img src="https://img.alicdn.com/imgextra/i1/165218339/O1CN01MrbOEk2BTJOFZcenv_!!165218339.jpg" align="absmiddle" /><img src="https://img.alicdn.com/imgextra/i2/165218339/O1CN01Z4dWU42BTJOHtV9ZP_!!165218339.jpg" align="absmiddle" /></div>\n<div class="MsgHistory"><img class="" src="https://img.alicdn.com/imgextra/i1/165218339/O1CN01gBeJ9T2BTJNQsv9sg_!!165218339.jpg" align="absmiddle" /></div>"',
-          price: 34,
-          sales: 23,
-          stock: 1000,
-          pic: [
-            'https://gd1.alicdn.com/imgextra/i1/165218339/O1CN01xZCayZ2BTJOKbL8Y4_!!165218339.jpg',
-            'https://gd1.alicdn.com/imgextra/i1/165218339/O1CN01NpYs7K2BTJOHVPKqr_!!165218339.jpg_400x400.jpg'
-          ],
-          created: '2020-04-01T15:22:51+08:00'
-        }
+        // {
+        //   id: 1,
+        //   store_id: '1',
+        //   name: '10英寸水果蛋糕',
+        //   intro: '白色浪漫、四重奏、交响乐团、粉红豹',
+        //   detail:
+        //     '"<div class="MsgHistory"><img src="https://img.alicdn.com/imgextra/i4/165218339/O1CN01jkBtyc2BTJNQimS9J_!!165218339.jpg" align="absmiddle" data-spm-anchor-id="2013.1.0.i0.2e5b53fdtQxkr0" /></div>\n<div class="MsgHistory"><img src="https://img.alicdn.com/imgextra/i1/165218339/O1CN010bbCzd2BTJOEEnPRv_!!165218339.jpg" align="absmiddle" /><img src="https://img.alicdn.com/imgextra/i1/165218339/O1CN01MrbOEk2BTJOFZcenv_!!165218339.jpg" align="absmiddle" /><img src="https://img.alicdn.com/imgextra/i2/165218339/O1CN01Z4dWU42BTJOHtV9ZP_!!165218339.jpg" align="absmiddle" /></div>\n<div class="MsgHistory"><img class="" src="https://img.alicdn.com/imgextra/i1/165218339/O1CN01gBeJ9T2BTJNQsv9sg_!!165218339.jpg" align="absmiddle" /></div>"',
+        //   price: 34,
+        //   sales: 23,
+        //   stock: 1000,
+        //   pic: [
+        //     'https://gd1.alicdn.com/imgextra/i1/165218339/O1CN01xZCayZ2BTJOKbL8Y4_!!165218339.jpg',
+        //     'https://gd1.alicdn.com/imgextra/i1/165218339/O1CN01NpYs7K2BTJOHVPKqr_!!165218339.jpg_400x400.jpg'
+        //   ],
+        //   created: '2020-04-01T15:22:51+08:00'
+        // }
       ]
     }
   },
   computed: {},
   mounted () {
-    // this.store = (this.$route.query.data)
-    console.log(this.store)
+    console.log(this.$route.query.data)
+    this.store = JSON.parse(this.$route.query.data)
+    console.log(this.store.id)
+    this.getGoodsList()
   },
   methods: {
+    getGoodsList () {
+      const data = {
+        store_id: this.store.id
+      }
+      axios.post('https://sc.bzamo.com/wawy/user/store/goods', data).then((response) => {
+        this.goods_list = response.data.data
+        console.log(response.data.data)
+      }).catch((error) => {
+        Toast({
+          message: error.message,
+          duration: '500'
+        })
+      })
+    },
     onClickLeft () {
       this.$router.push({path: '/home'})
     },
@@ -96,7 +113,8 @@ export default {
       console.log(goods)
       this.$router.push({path: '/goods',
         query: {
-          data: goods
+          data: goods,
+          store: JSON.stringify(this.store)
         }})
     }
   }
@@ -106,16 +124,20 @@ export default {
 .container {
   width: 100%;
   margin: auto;
+  /* background-color: red; */
   /* margin-top: 200px; */
 }
 /* pages/home/store/index.wxss */
 .store-name {
-  width: 100%;
-  padding: 15px;
+  /* width: 100%; */
+  /* padding: 15px; */
+  margin-top: 15px;
+  margin-left: 15px;
   font-size: 22px;
   font-family: PingFangSC-Medium, PingFang SC;
   font-weight: 500;
   color: rgba(77, 77, 77, 1);
+  text-align: left;
 }
 
 .banner {
@@ -138,8 +160,8 @@ export default {
 }
 
 .address {
-  width: 100%;
-  padding: 15px;
+  width: 90%;
+  padding: 15px 15px 15px 15px;
   display: flex;
 }
 
@@ -148,6 +170,7 @@ export default {
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
   color: rgba(50, 51, 52, 1);
+  text-align: left
 }
 
 .phone {
@@ -167,7 +190,7 @@ export default {
   font-weight: 500;
   color: rgba(36, 36, 36, 1);
   width: 100%;
-  padding: 0 15px;
+  /* padding: 0 15px; */
   background: #ebebeb;
   height: 50px;
   line-height: 50px;
@@ -196,6 +219,7 @@ export default {
 .item-right {
   flex: 1;
   padding: 15px 15px;
+  text-align: left;
 }
 
 .list-store-name {

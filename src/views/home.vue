@@ -22,9 +22,10 @@
 </template>
 
 <script>
-// import { Toast } from 'vant'
-// import { Toast } from 'vant'
-import * as Common from '@/api/api'
+
+import { Toast } from 'vant'
+import axios from 'axios'
+// import wx from 'weixin-js-sdk'
 
 export default {
   data () {
@@ -54,19 +55,87 @@ export default {
   computed: {
   },
   mounted () {
-    // const AppId = 'wxe5c85934d893dd13'
-    // const local = window.location.href
-    // window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + AppId + '&redirect_uri=' + encodeURIComponent(local) + 'response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
-    // console.log(this.$route.query.data)
-    // Toast(this.$route)
     this.getStores()
+
+    // wx.config({
+    //   debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+    //   appId: 'wx54d6bcf1415974fb', // 必填，公众号的唯一标识
+    //   timestamp: new Date(), // 必填，生成签名的时间戳
+    //   nonceStr: this.randomString(), // 的随必填，生成签名机串
+    //   signature: this.randomString(), // 必填，签名
+    //   jsApiList: [
+    //     'checkJsApi',
+    //     'openLocation',
+    //     'getLocation'
+    //   ] // 必填，需要使用的JS接口列表
+    // })
+    // wx.ready(function () {
+    //   // 基础接口判断当前客户端版本是否支持指定JS接口
+    //   wx.checkJsApi({
+    //     jsApiList: [
+    //       'getLocation'
+    //     ],
+    //     success: function (res) {
+    //       // alert(JSON.stringify(res));
+    //       // alert(JSON.stringify(res.checkResult.getLocation));
+    //       if (res.checkResult.getLocation === false) {
+    //         alert('你的微信版本太低，不支持微信JS接口，请升级到最新的微信版本！')
+    //       }
+    //     }
+    //   })
+    //   // 微信获取地理位置并拉取用户列表（用户允许获取用户的经纬度）
+    //   wx.getLocation({
+    //     success: function (res) {
+    //       var latitude = res.latitude // 纬度，浮点数，范围为90 ~ -90
+    //       var longitude = res.longitude // 经度，浮点数，范围为180 ~ -180。
+    //       alert(latitude + '======' + longitude)
+    //       console.log(latitude + '======' + longitude)
+    //       // $.ajax({
+    //       //   url: 'ajax.php?act=shoplist',
+    //       //   data: {latitude: latitude, longitude: longitude},
+    //       //   cache: false,
+    //       //   async: true,
+    //       //   type: 'POST',
+    //       //   dataType: 'text',
+    //       //   success: function (result) {
+    //       //     console.log('111111')
+    //       //   // alert(result);
+    //       //   }
+    //       // })
+    //     },
+    //     cancel: function (res) {
+    //       alert('111111111')
+    //     }
+    //   })
+    // })
   },
   methods: {
+    randomString (len) {
+      len = len || 32
+      var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678' /** **默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
+      var maxPos = $chars.length
+      var pwd = ''
+      for (var i = 0; i < len; i++) {
+        pwd += $chars.charAt(Math.floor(Math.random() * maxPos))
+      }
+      return pwd
+    },
     getStores () {
-      Common.userStores().then(result => {
-        console.log(result)
-      }).catch(err => {
-        console.log(err)
+      // wx.config({
+      //   debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+      //   appId: '', // 必填，公众号的唯一标识
+      //   timestamp: new Date(), // 必填，生成签名的时间戳
+      //   nonceStr: '', // 必填，生成签名的随机串
+      //   signature: '', // 必填，签名
+      //   jsApiList: [] // 必填，需要使用的JS接口列表
+      // })
+      axios.get('https://sc.bzamo.com/wawy/user/stores').then((response) => {
+        this.store_list = response.data.data
+      }).catch((error) => {
+        Toast({
+          message: error.message,
+          duration: '500'
+        })
       })
     },
     onClickStore (store) {
@@ -127,6 +196,7 @@ export default {
     font-family:PingFangSC-Medium,PingFang SC;
     font-weight:500;
     color:rgba(51,51,51,1);
+    text-align: left;
 }
 
 .store-tags{

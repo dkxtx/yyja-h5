@@ -1,24 +1,11 @@
 <template>
   <div class="bg-class">
-    <van-nav-bar title="我的订单" />
-    <van-tabs
-      v-model="active"
-      swipeable
-      style="width:100%"
-      animated
-      color="#D5B388"
-      active-color="#242424"
-      @change="onChange"
-    >
+    <van-nav-bar title="我的订单" left-arrow @click-left="onClickLeft"  />
+    <van-tabs v-model="active" swipeable style="width:100%" animated color="#D5B388" active-color="#242424" @change="onChange">
       <van-tab v-for="(element, elementIndex) in tabsData" :key="elementIndex" :title="element">
         <div style="width:100%;">
           <div v-if="orders.length == 0" class="no-order-class">暂无订单数据</div>
-          <div
-            v-for="(item,index) in orders"
-            v-bind:key="index"
-            @click="onClickOrder"
-            style="margin-top:20rpx"
-          >
+          <div v-for="(item,index) in orders" v-bind:key="index" @click="onClickOrder" style="margin-top:20rpx" >
             <div class="item-header">
               <img src="item.store.pic" class="store-pic" />
               <div class="store-name">item.store.name</div>
@@ -246,7 +233,12 @@ export default {
   },
   mounted () {},
   methods: {
-    onChange () {}
+    onChange () {},
+    onClickLeft () {
+      this.$router.push({
+        name: 'my'
+      })
+    }
   }
 }
 </script>
