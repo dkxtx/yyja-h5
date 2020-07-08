@@ -1,7 +1,6 @@
 <template>
   <div class="container">
-    <van-nav-bar v-if="from_my_page === false" title="商家" />
-    <van-nav-bar v-if="from_my_page === true" title="推荐商家" left-arrow @click-left="onClickLeft"/>
+    <van-nav-bar :title="from_my_page ? '推荐商家' : '商家'" left-arrow @click-left="onClickLeft"/>
     <div class="store">
       <div class="item" v-for="(item , index) in store_list" :key="index" @click="onClickStore(item)">
       <div class="item-left">
@@ -144,7 +143,13 @@ export default {
       //   signature: '', // 必填，签名
       //   jsApiList: [] // 必填，需要使用的JS接口列表
       // })
-      axios.get('https://sc.bzamo.com/wawy/user/stores?c_id=' + this.$route.query.id).then((response) => {
+      var requestUrl = ''
+      if (this.$route.query.data) {
+        requestUrl = 'https://sc.bzamo.com/wawy/user/recommend/stores'
+      } else {
+        requestUrl = 'https://sc.bzamo.com/wawy/user/stores?c_id=' + this.$route.query.id
+      }
+      axios.get(requestUrl).then((response) => {
         this.store_list = response.data.data
         if (this.store_list.length === 0) {
           Toast('暂无店铺')

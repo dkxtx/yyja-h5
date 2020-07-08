@@ -70,7 +70,7 @@ export default {
   methods: {
     getBanner () {
       axios
-        .get('http://192.168.51.53:9001/wawy/user/banner')
+        .get('https://sc.bzamo.com/wawy/user/banner')
         .then(res => {
           this.bannerImg = res.data.data[0].url
         })
@@ -83,7 +83,7 @@ export default {
     },
     getCategory () {
       axios
-        .get('http://192.168.51.53:9001/wawy/user/categories')
+        .get('https://sc.bzamo.com/wawy/user/categories')
         .then(res => {
           this.headerData = res.data.data
         })
@@ -96,7 +96,7 @@ export default {
     },
     getStore () {
       axios
-        .get('http://192.168.51.53:9001/wawy/user/recommend/stores')
+        .get('https://sc.bzamo.com/wawy/user/recommend/stores')
         .then(res => {
           this.sotreData = res.data.data
         })
@@ -109,7 +109,7 @@ export default {
     },
     getGood () {
       axios
-        .get('http://192.168.51.53:9001/wawy/user/hot/goods')
+        .get('https://sc.bzamo.com/wawy/user/hot/goods')
         .then(res => {
           console.log(res)
           this.goodData = res.data.data
@@ -125,8 +125,7 @@ export default {
       this.$router.push({
         path: '/business',
         query: {
-          id: item.id,
-          data: 'from_my'
+          id: item.id
         }
       })
     },
