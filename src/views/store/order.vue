@@ -9,7 +9,7 @@
             <div class="item-header">
               <img src="item.store.pic" class="store-pic" />
               <div class="store-name">item.store.name</div>
-              <img class="nav-icon" src="../../images/arrow.png" />
+              <img class="nav-icon" src="../../../images/arrow.png" />
               <div class="order-status" v-if="item.status == 1">待付款</div>
               <div class="order-status" v-if="item.status == 2">待发货</div>
               <div class="order-status" v-if="item.status == 3">待收货</div>

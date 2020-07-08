@@ -1,15 +1,18 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import home from '@/views/home'
-import my from '@/views/my'
+import home from '@/views/home/home'
 
-import store from '@/views/store'
-import order from '@/views/order'
-import goods from '@/views/goods'
-import submit from '@/views/submit'
+import goods from '@/views/store/goods'
+import order from '@/views/store/order'
+import store from '@/views/store/store'
+import submit from '@/views/store/submit'
+import business from '@/views/store/business'
+
 import register from '@/views/register'
-import feedback from '@/views/feedback'
+
+import my from '@/views/person/my'
+import feedback from '@/views/person/feedback'
 
 // import HelloWorld from '@/components/HelloWorld'
 // import bLogin from '@/views/blogin'
@@ -42,6 +45,11 @@ export default new Router({
     path: '/my',
     name: 'my',
     component: my
+  },
+  {
+    path: '/business',
+    name: 'business',
+    component: business
   },
   {
 
