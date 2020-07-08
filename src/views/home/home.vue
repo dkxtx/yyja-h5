@@ -9,6 +9,7 @@
           :key="index"
           :icon="item.url"
           :text="item.title"
+          @click="onClickList(item)"
         />
       </van-grid>
     </div>
@@ -16,7 +17,7 @@
     <div class="body_class">
       <div class="body_title">推荐店铺</div>
       <van-skeleton v-if="sotreData.length === 0" title avatar :row="3" />
-      <div class="box" v-else v-for="(item, index) in sotreData" :key="index">
+      <div class="box" v-else v-for="(item, index) in sotreData" :key="index" @click="onClickStore(item)">
         <img class="box_img" :src="item.logo" alt srcset />
         <div class="box_content">
           <div class="title">{{item.name}}({{item.district}})</div>
@@ -119,6 +120,23 @@ export default {
             duration: '500'
           })
         })
+    },
+    onClickList (item) {
+      this.$router.push({
+        path: '/business',
+        query: {
+          id: item.id,
+          data: 'from_my'
+        }
+      })
+    },
+    onClickStore (store) {
+      this.$router.push({
+        path: '/store',
+        query: {
+          data: JSON.stringify(store)
+        }
+      })
     },
     onClickGoods (goods) {
       console.log(goods)

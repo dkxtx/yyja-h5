@@ -119,9 +119,10 @@ export default {
   },
   methods: {
     onClickLeft () {
-      this.$router.push({
-        path: '/my'
-      })
+      this.$router.back()
+      // this.$router.push({
+      //   path: '/my'
+      // })
     },
 
     randomString (len) {
@@ -143,8 +144,11 @@ export default {
       //   signature: '', // 必填，签名
       //   jsApiList: [] // 必填，需要使用的JS接口列表
       // })
-      axios.get('https://sc.bzamo.com/wawy/user/stores').then((response) => {
+      axios.get('https://sc.bzamo.com/wawy/user/stores?c_id=' + this.$route.query.id).then((response) => {
         this.store_list = response.data.data
+        if (this.store_list.length === 0) {
+          Toast('暂无店铺')
+        }
       }).catch((error) => {
         Toast({
           message: error.message,

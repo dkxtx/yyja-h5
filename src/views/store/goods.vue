@@ -64,12 +64,13 @@ export default {
   },
   methods: {
     onClickLeft () {
-      this.$router.push({
-        name: 'store',
-        query: {
-          data: JSON.stringify(this.store)
-        }
-      })
+      this.$router.back()
+      // this.$router.push({
+      //   name: 'store',
+      //   query: {
+      //     data: JSON.stringify(this.store)
+      //   }
+      // })
     },
     surePay () {
       this.$router.push({

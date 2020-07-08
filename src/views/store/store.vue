@@ -107,7 +107,8 @@ export default {
       })
     },
     onClickLeft () {
-      this.$router.push({path: '/home'})
+      // this.$router.push({path: '/home'})
+      this.$router.back()
     },
     onClickGoods (goods) {
       console.log(goods)

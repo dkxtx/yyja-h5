@@ -3,7 +3,7 @@
     <router-view/>
     <van-tabbar route active-color="#D5B388" inactive-color="#000">
       <van-tabbar-item replace to="/home" icon="home-o">首页</van-tabbar-item>
-      <van-tabbar-item replace to="/business" icon="apps-o">周边商铺</van-tabbar-item>
+      <!-- <van-tabbar-item replace to="/business" icon="apps-o">周边商铺</van-tabbar-item> -->
       <van-tabbar-item replace to="/my" icon="friends-o">我的</van-tabbar-item>
     </van-tabbar>
   </div>
