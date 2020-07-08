@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <van-nav-bar title="商城" />
+    <van-nav-bar title="首页" />
     <div class="header">
       <img class="banner_img" :src="bannerImg" alt />
       <van-grid :gutter="10" :border="false" :column-num="5" style="padding:0;">
@@ -27,6 +27,7 @@
         <div class="box_tip"></div>
       </div>
     </div>
+    <div class="line"></div>
     <div class="body_class">
       <div class="body_title">热门商品</div>
       <van-skeleton v-if="goodData.length === 0" title avatar :row="3" />

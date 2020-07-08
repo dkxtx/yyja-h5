@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <van-nav-bar :title="from_my_page ? '推荐商家' : '商家'" left-arrow @click-left="onClickLeft"/>
-    <div class="store">
+    <div class="store" v-if="store_list.length != 0">
       <div class="item" v-for="(item , index) in store_list" :key="index" @click="onClickStore(item)">
       <div class="item-left">
        <img :src="item.logo" class="store-img-class" />
@@ -18,6 +18,7 @@
       </div>
     </div>
     </div>
+    <div v-else style="margin-top:50px;text-align:center;color: rgba(102, 103, 104, 1);">暂无数据</div>
   </div>
 </template>
 
@@ -151,9 +152,9 @@ export default {
       }
       axios.get(requestUrl).then((response) => {
         this.store_list = response.data.data
-        if (this.store_list.length === 0) {
-          Toast('暂无店铺')
-        }
+        // if (this.store_list.length === 0) {
+        //   Toast('暂无店铺')
+        // }
       }).catch((error) => {
         Toast({
           message: error.message,
