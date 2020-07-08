@@ -23,9 +23,9 @@
         </div>
         <div class="store-distance" style="left:115px;color:#FD6842;font-size:14px;font-family:PingFangSC-Medium,PingFang SC;font-weight:500;color:rgba(253,104,66,1);">￥{{item.price}}</div>
         <div class="store-distance" style="display:flex;text-align:center">
-          <div style="width:15px;height:15px;color:#262626" @click="onClickMinus">-</div>
+          <div style="width:15px;height:15px;color:#262626;line-height:15px;margin-top:5px;" @click="onClickMinus">-</div>
           <div style="width:50px;height:15px;background:#F2F2F2;line-height:15px;margin-top:5px;color:#262626">{{goodsCount}}</div>
-          <div style="width:15px;height:15px;color:#262626" @click="onClickPlus">+</div>
+          <div style="width:15px;height:15px;color:#262626;line-height:15px;margin-top:5px;" @click="onClickPlus">+</div>
         </div>
       </div>
     </div>
@@ -52,8 +52,8 @@ export default {
         cityName: '成都市',
         countyName: '武侯区',
         detailInfo: '迈普大厦1406',
-        userName: '张劲松',
-        telNumber: '15808168239'
+        userName: '',
+        telNumber: '18583750607'
       },
       item: {
         pic: 'https://gd1.alicdn.com/imgextra/i1/165218339/O1CN01xZCayZ2BTJOKbL8Y4_!!165218339.jpg',
@@ -69,11 +69,14 @@ export default {
         created: '2020-04-01T15:22:51+08:00'
       },
       goodsCount: 1,
-      totalAmount: 0
+      totalAmount: 0,
+      user_info: {}
     }
   },
   computed: {},
   mounted () {
+    this.user_info = localStorage.getItem('user_info')
+    this.selected_address.userName = this.user_info.nick_name
     let currenttotalamount = 1
     let currentprice = this.item.price
     currenttotalamount = currentprice * currenttotalamount
@@ -142,6 +145,7 @@ export default {
   width: 95%;
   margin: auto;
   margin-top: 15px;
+  text-align: left;
   /* padding: 15px; */
 }
 .address{
@@ -190,6 +194,7 @@ export default {
   height: 115px;
   display: flex;
   border-bottom: 1px solid #F0F0F0;
+  text-align: left;
 }
 
 .item-left {
@@ -248,6 +253,7 @@ export default {
   background:rgba(255,255,255,1);
   border-top:1px solid #F5F5F4;
   display: flex;
+  text-align: left
 }
 
 .footer-price{

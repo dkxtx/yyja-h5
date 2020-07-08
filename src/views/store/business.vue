@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    <van-nav-bar title="周边商家" />
+    <van-nav-bar v-if="from_my_page === false" title="商家" />
+    <van-nav-bar v-if="from_my_page === true" title="推荐商家" left-arrow @click-left="onClickLeft"/>
     <div class="store">
       <div class="item" v-for="(item , index) in store_list" :key="index" @click="onClickStore(item)">
       <div class="item-left">
@@ -49,12 +50,19 @@ export default {
         //   province: '四川',
         //   start_time: '7:00'
         // }
-      ]
+      ],
+      from_my_page: false
     }
   },
   computed: {
   },
   mounted () {
+    console.log(this.$route.query)
+    if (this.$route.query.data === 'from_my') {
+      this.from_my_page = true
+    } else {
+      this.from_my_page = false
+    }
     this.getStores()
 
     // wx.config({
@@ -110,6 +118,12 @@ export default {
     // })
   },
   methods: {
+    onClickLeft () {
+      this.$router.push({
+        path: '/my'
+      })
+    },
+
     randomString (len) {
       len = len || 32
       var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678' /** **默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
