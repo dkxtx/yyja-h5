@@ -71,7 +71,7 @@ export default {
   methods: {
     getBanner () {
       axios
-        .get('https://sc.bzamo.com/wawy/user/banner')
+        .get('https://wa.cihangca.com/wawy/user/banner')
         .then(res => {
           this.bannerImg = res.data.data[0].url
         })
@@ -84,7 +84,7 @@ export default {
     },
     getCategory () {
       axios
-        .get('https://sc.bzamo.com/wawy/user/categories')
+        .get('https://wa.cihangca.com/wawy/user/categories')
         .then(res => {
           this.headerData = res.data.data
         })
@@ -97,7 +97,7 @@ export default {
     },
     getStore () {
       axios
-        .get('https://sc.bzamo.com/wawy/user/recommend/stores')
+        .get('https://wa.cihangca.com/wawy/user/recommend/stores')
         .then(res => {
           this.sotreData = res.data.data
         })
@@ -110,7 +110,7 @@ export default {
     },
     getGood () {
       axios
-        .get('https://sc.bzamo.com/wawy/user/hot/goods')
+        .get('https://wa.cihangca.com/wawy/user/hot/goods')
         .then(res => {
           console.log(res)
           this.goodData = res.data.data
