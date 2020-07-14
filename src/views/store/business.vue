@@ -146,9 +146,9 @@ export default {
       // })
       var requestUrl = ''
       if (this.$route.query.data) {
-        requestUrl = 'https://sc.bzamo.com/wawy/user/recommend/stores'
+        requestUrl = 'https://wa.cihangca.com/wawy/user/recommend/stores'
       } else {
-        requestUrl = 'https://sc.bzamo.com/wawy/user/stores?c_id=' + this.$route.query.id
+        requestUrl = 'https://wa.cihangca.com/wawy/user/stores?c_id=' + this.$route.query.id
       }
       axios.get(requestUrl).then((response) => {
         this.store_list = response.data.data

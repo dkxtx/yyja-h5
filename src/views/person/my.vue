@@ -125,7 +125,7 @@ export default {
       let data = {
         code: code
       }
-      axios.post('https://sc.bzamo.com/wawy/user/wx/accesstoken', data).then((response) => {
+      axios.post('https://wa.cihangca.com/wawy/user/wx/accesstoken', data).then((response) => {
         this.user_info = response.data.data
         // Toast({
         //   message: JSON.stringify(response.data.data),
