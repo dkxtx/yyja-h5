@@ -96,7 +96,7 @@ export default {
       const data = {
         store_id: this.store.id
       }
-      axios.post('https://wa.cihangca.com/wawy/user/store/goods', data).then((response) => {
+      axios.post('https://wa.cihangca.com:20010/wawy/user/store/goods', data).then((response) => {
         this.goods_list = response.data.data
         console.log(response.data.data)
       }).catch((error) => {

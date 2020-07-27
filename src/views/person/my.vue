@@ -86,12 +86,13 @@
     </div>
     <div class="line" style="height:10px"></div>
     <button class="login-out-class" @click="loginOut">{{is_login==true?'退出登录':'登录/注册'}}</button>
-    <!-- <div>{{JSON.stringify(user_info)}}</div> -->
+    <!-- <div>{{msgText}}</div>
+    <div>{{textUrl}}</div> -->
   </div>
 </template>
 
 <script>
-// import { Toast } from 'vant'
+import { Toast } from 'vant'
 import axios from 'axios'
 
 export default {
@@ -99,9 +100,12 @@ export default {
     return {
       is_login: false,
       user_info: {}
+      // msgText: '',
+      // textUrl: ''
     }
   },
   created () {
+    this.textUrl = window.location.href
     if (window.location.href.indexOf('?') !== -1) {
       const url = window.location.href
       const code = url.substring(url.indexOf('?') + 1, url.indexOf('#')).split('&')[0].split('=')[1]
@@ -122,21 +126,25 @@ export default {
       })
     },
     getToken (code) {
+      // this.msgText = '调用函数'
       let data = {
         code: code
       }
-      axios.post('https://wa.cihangca.com/wawy/user/wx/accesstoken', data).then((response) => {
+      axios.post('https://wa.cihangca.com:20010/wawy/user/wx/accesstoken', data).then((response) => {
+        // this.msgText = '调用成功'
         this.user_info = response.data.data
         // Toast({
         //   message: JSON.stringify(response.data.data),
         //   duration: 10000
         // })
+        Toast('登录成功')
         this.is_login = true
         localStorage.setItem('user_info', this.user_info.user)
         localStorage.setItem('token', this.user_info.token)
       })
         .catch((error) => {
-          // Toast(JSON.stringify(error))
+          // this.msgText = '调用失败'
+          Toast(`登录失败：${JSON.stringify(error)}`)
           console.log(error)
         })
     },
@@ -150,6 +158,7 @@ export default {
       if (!this.is_login) {
         const url = encodeURIComponent('https://wa.cihangca.com/#/my')
         window.location.replace(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx54d6bcf1415974fb&redirect_uri=` + url + `&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`)
+        // this.msgText = '微信接口调用'
         return
       }
       this.is_login = false

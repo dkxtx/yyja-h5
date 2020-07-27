@@ -9,7 +9,7 @@ const serve = axios.create({
   // basic url
   // baseURL: 'http://dev.axzo.cn:4601', // 测试
   // baseURL: 'http://192.168.51.53:9001', // 本地
-  baseURL: 'https://wa.cihangca.com', // 线上
+  baseURL: 'https://wa.cihangca.com:20010', // 线上
 
   // 超时时间
   timeout: 60000,
