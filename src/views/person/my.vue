@@ -105,7 +105,7 @@ export default {
     if (window.location.href.indexOf('?') !== -1) {
       const url = window.location.href
       const code = url.substring(url.indexOf('?') + 1, url.indexOf('#')).split('&')[0].split('=')[1]
-      this.code = code
+      // this.code = code
       this.getToken(code)
     }
   },
