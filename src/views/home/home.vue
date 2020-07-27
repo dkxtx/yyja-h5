@@ -151,6 +151,9 @@ export default {
 </script>
 
 <style scoped>
+.page {
+  padding-bottom: 60px;
+}
 .header {
   padding: 10px 0;
 }
@@ -211,6 +214,7 @@ export default {
 }
 
 .box_content {
+  width: calc(100% - 85px);
   height: 85px;
   line-height: 30px;
   margin-left: 10px;

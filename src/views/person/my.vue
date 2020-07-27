@@ -105,7 +105,7 @@ export default {
     }
   },
   created () {
-    this.textUrl = window.location.href
+    // this.textUrl = window.location.href
     if (window.location.href.indexOf('?') !== -1) {
       const url = window.location.href
       const code = url.substring(url.indexOf('?') + 1, url.indexOf('#')).split('&')[0].split('=')[1]
@@ -127,6 +127,13 @@ export default {
     },
     getToken (code) {
       // this.msgText = '调用函数'
+      // Toast(localStorage.getItem('user_info'))
+      if (localStorage.getItem('user_info') !== null) {
+        this.is_login = true
+        this.user_info.user = JSON.parse(localStorage.getItem('user_info'))
+        // Toast(JSON.stringify(this.user_info))
+        return
+      }
       let data = {
         code: code
       }
@@ -139,14 +146,13 @@ export default {
         // })
         Toast('登录成功')
         this.is_login = true
-        localStorage.setItem('user_info', this.user_info.user)
+        localStorage.setItem('user_info', JSON.stringify(this.user_info.user))
         localStorage.setItem('token', this.user_info.token)
+      }).catch((error) => {
+        // this.msgText = '调用失败'
+        Toast(`登录失败：${JSON.stringify(error)}`)
+        console.log(error)
       })
-        .catch((error) => {
-          // this.msgText = '调用失败'
-          Toast(`登录失败：${JSON.stringify(error)}`)
-          console.log(error)
-        })
     },
     loginOut () {
       if (localStorage.getItem('user_info') !== null) {
