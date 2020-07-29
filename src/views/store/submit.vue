@@ -66,8 +66,8 @@
 
 <script>
 import { Toast } from "vant";
-import axios from 'axios'
-import querystring from 'querystring'
+import axios from "axios";
+import querystring from "querystring";
 
 export default {
   data() {
@@ -78,7 +78,7 @@ export default {
         countyName: "武侯区",
         detailInfo: "迈普大厦1406",
         userName: "",
-        telNumber: "18583750607"
+        telNumber: "18583750607",
       },
       item: {
         pic:
@@ -92,11 +92,11 @@ export default {
         price: 34,
         sales: 23,
         stock: 1000,
-        created: "2020-04-01T15:22:51+08:00"
+        created: "2020-04-01T15:22:51+08:00",
       },
       goodsCount: 1,
       totalAmount: 0,
-      user_info: {}
+      user_info: {},
     };
   },
   computed: {},
@@ -141,50 +141,24 @@ export default {
       this.totalAmount = currenttotalamount;
     },
     onClickSubmit() {
-      const self = this
+      const self = this;
+      // 生成随机订单号
+      const trade_no = (new Date()).getTime();
       axios
         .get(
-          "https://ah.cihangca.com/wanan/payment/sign?amount=1&trade_no=1234&open_id=232332"
+          `https://ah.cihangca.com/wanan/payment/sign?amount=1&trade_no=${trade_no}&open_id=232332`
         )
-        .then(res => {
+        .then((res) => {
           const form = res.data.form;
-          
           const content = form.biz_content;
           delete form.biz_content;
-          delete form.ca;
-          delete form.app_auth_token;
-          delete content.ca;
-          delete content.app_auth_token;
-          console.log("form ==== ", form)
-          const action = `https://gw.open.icbc.com.cn/ui/aggregate/payment/request/V3?${querystring.stringify(
-            form
-          )}`;
-          self.$refs["paymentForm"].action = action;
-          self.$refs["biz_content"].value = content;
-          self.$refs["paymentForm"].submit();
-        })
-        .catch(error => {
-          Toast({
-            message: error.message,
-            duration: "500"
-          });
+          const action = `https://gw.open.icbc.com.cn/ui/aggregate/payment/request/V1?${querystring.stringify(form)}`;
+          self.$refs['paymentForm'].action = action;
+          self.$refs['biz_content'].value = content;
+          self.$refs['paymentForm'].submit();
         });
-      // var param = {
-      //   id: this.item.id,
-      //   count: this.goodsCount
-      // }
-      // console.log(param)
-      // Toast.loading({
-      //   message: '加载中...',
-      //   forbidClick: true
-      // })
-
-      // setTimeout(function () {
-      //   Toast.clear()
-      //   Toast('服务器数据异常，请稍后再试')
-      // }, 2000)
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>
