@@ -3,7 +3,7 @@
     <van-nav-bar title="提交订单" left-arrow @click-left="onClickLeft" />
     <div class="address-item">
       <div class="address">
-        <van-field class="address_inp" v-model="selected_address.region" label="省市区：" placeholder="请输入省市区" />
+        <van-field class="address_inp" v-model="selected_address.region" label="城市：" placeholder="请输入省市区" />
         <!-- {{selected_address.provinceName+selected_address.cityName+selected_address.countyName}} -->
         </div>
       <div class="address-detail">
@@ -11,9 +11,12 @@
         <!-- {{selected_address.detailInfo}} -->
       </div>
       <div class="user">
-        <van-field class="address_inp user_inp" v-model="selected_address.receivGood" label="收货人：" placeholder="请输入收货人信息" readonly />
+        <van-field class="address_inp" v-model="selected_address.name" label="收货人姓名：" placeholder="请输入收货人姓名" />
         <!-- {{selected_address.userName}}
         <span style="margin-left:10rpx">{{selected_address.telNumber }}</span> -->
+      </div>
+      <div class="user">
+        <van-field class="address_inp" v-model="selected_address.phone" type="tel" label="收货人电话：" placeholder="请输入收货人电话" />
       </div>
     </div>
     <div class="line"></div>
@@ -83,7 +86,8 @@ export default {
     return {
       selected_address: {
         region: '',
-        receivGood: '',
+        name: '',
+        phone: '',
         receiveAddress: ''
       },
       item: {},
@@ -98,9 +102,8 @@ export default {
     this.totalAmount = this.item.price / 100
   },
   mounted () {
-    this.user_info = localStorage.getItem('user_info')
-    this.selected_address.receivGood = this.user_info.nick_name + ' ' + this.user_info.nick_name
-    this.selected_address.region = this.user_info.province + this.user_info.city
+    this.user_info = JSON.parse(localStorage.getItem('user_info'))
+    this.selected_address.name = this.user_info.nick_name
     let currenttotalamount = 1
     let currentprice = this.item.price
     currenttotalamount = currentprice * currenttotalamount
@@ -139,6 +142,10 @@ export default {
       this.totalAmount = currenttotalamount / 100
     },
     onClickSubmit () {
+      for (const key in this.selected_address) {
+        const element = this.selected_address[key]
+        if (!element) return Toast('请填写完整信息')
+      }
       const self = this
       // 生成随机订单号
       const tradeNo = (new Date()).getTime()
@@ -319,20 +326,15 @@ export default {
 
 .address_inp {
   padding: 2px 0;
+  margin: 15px 0;
 }
 
 .address_inp /deep/ .van-field__label {
-  width: 60px;
-  text-align: right;
+  width: 85px;
+  text-align: left;
 }
 
 .address_inp /deep/ .van-field__value {
   border-bottom: 1px solid #f5f5f4;
-  /* padding: 2px 0; */
-}
-
-.user_inp  /deep/ .van-field__value {
-  border-bottom-width: 0;
-  /* padding: 2px 0; */
 }
 </style>
