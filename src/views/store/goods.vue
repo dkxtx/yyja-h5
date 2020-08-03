@@ -14,7 +14,7 @@
         <div class="detail_content">{{goodData.intro}}</div>
         <div class="detail_count">销量 {{goodData.sales}}</div>
         <div class="detail_fee">
-          <div class="fee">￥ {{goodData.price}}</div>
+          <div class="fee">￥ {{goodData.price / 100}}</div>
           <button class="pay_btn" @click="surePay">立即购买</button>
         </div>
       </div>
@@ -73,9 +73,12 @@ export default {
       // })
     },
     surePay () {
-      this.$router.push({
-        name: 'submit'
-      })
+     this.$router.push({
+        path: "/submit",
+        query: {
+          data: this.goodData,
+        },
+      });
     }
   }
 }

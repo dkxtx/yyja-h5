@@ -37,7 +37,7 @@
           <div class="title">{{item.name}}</div>
           <div class="content">{{item.intro}}</div>
           <div class="bottom_box">
-            <div class="price">￥{{item.price}}</div>
+            <div class="price">￥{{item.price / 100}}</div>
             <div class="box_tip">销售 {{item.sales}}</div>
           </div>
         </div>
