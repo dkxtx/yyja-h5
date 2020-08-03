@@ -3,7 +3,7 @@
     <van-nav-bar title="首页" />
     <div class="header">
       <img class="banner_img" :src="bannerImg" alt />
-      <van-grid :gutter="10" :border="false" :column-num="5" style="padding:0;">
+      <van-grid :gutter="10" :border="false" :column-num="4" style="padding:0;">
         <van-grid-item
           v-for="(item,index) in headerData"
           :key="index"
