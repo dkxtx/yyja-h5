@@ -2,13 +2,18 @@
   <div class="container">
     <van-nav-bar title="提交订单" left-arrow @click-left="onClickLeft" />
     <div class="address-item">
-      <div
-        class="address"
-      >{{selected_address.provinceName+selected_address.cityName+selected_address.countyName}}</div>
-      <div class="address-detail">{{selected_address.detailInfo}}</div>
+      <div class="address">
+        <van-field class="address_inp" v-model="selected_address.region" label="省市区：" placeholder="请输入省市区" />
+        <!-- {{selected_address.provinceName+selected_address.cityName+selected_address.countyName}} -->
+        </div>
+      <div class="address-detail">
+        <van-field class="address_inp" v-model="selected_address.receiveAddress" label="地址：" placeholder="请输入收货地址" />
+        <!-- {{selected_address.detailInfo}} -->
+      </div>
       <div class="user">
-        {{selected_address.userName}}
-        <span style="margin-left:10rpx">{{selected_address.telNumber }}</span>
+        <van-field class="address_inp user_inp" v-model="selected_address.receivGood" label="收货人：" placeholder="请输入收货人信息" readonly />
+        <!-- {{selected_address.userName}}
+        <span style="margin-left:10rpx">{{selected_address.telNumber }}</span> -->
       </div>
     </div>
     <div class="line"></div>
@@ -69,92 +74,90 @@
 </template>
 
 <script>
-import { Toast } from "vant";
-import axios from "axios";
-import querystring from "querystring";
+import { Toast } from 'vant'
+import axios from 'axios'
+import querystring from 'querystring'
 
 export default {
-  data() {
+  data () {
     return {
       selected_address: {
-        provinceName: "四川省",
-        cityName: "成都市",
-        countyName: "武侯区",
-        detailInfo: "迈普大厦1406",
-        userName: "",
-        telNumber: "18583750607",
+        region: '',
+        receivGood: '',
+        receiveAddress: ''
       },
       item: {},
       goodsCount: 1,
       totalAmount: 0,
-      user_info: {},
-    };
+      user_info: {}
+    }
   },
   computed: {},
-  created() {
-    this.item = this.$route.query.data;
-    this.totalAmount = this.item.price / 100;
+  created () {
+    this.item = this.$route.query.data
+    this.totalAmount = this.item.price / 100
   },
-  mounted() {
-    this.user_info = localStorage.getItem("user_info");
-    this.selected_address.userName = this.user_info.nick_name;
-    let currenttotalamount = 1;
-    let currentprice = this.item.price;
-    currenttotalamount = currentprice * currenttotalamount;
+  mounted () {
+    this.user_info = localStorage.getItem('user_info')
+    this.selected_address.receivGood = this.user_info.nick_name + ' ' + this.user_info.nick_name
+    this.selected_address.region = this.user_info.province + this.user_info.city
+    let currenttotalamount = 1
+    let currentprice = this.item.price
+    currenttotalamount = currentprice * currenttotalamount
 
-    this.totalAmount = currenttotalamount / 100;
+    this.totalAmount = currenttotalamount / 100
   },
   methods: {
-    onClickLeft() {
-      this.$router.push({ path: "/home" });
+    onClickLeft () {
+      this.$router.push({ path: '/home' })
     },
-    onClickMinus() {
+    onClickMinus () {
       if (this.goodsCount === 1) {
-        return Toast("购买数量不能小于1");
+        return Toast('购买数量不能小于1')
       }
-      let currentgoodscount = this.goodsCount;
-      currentgoodscount -= 1;
+      let currentgoodscount = this.goodsCount
+      currentgoodscount -= 1
 
-      let currenttotalamount = 0;
-      let currentprice = this.item.price;
-      currenttotalamount = currentprice * currenttotalamount;
+      let currenttotalamount = 0
+      let currentprice = this.item.price
+      currenttotalamount = currentprice * currenttotalamount
 
-      this.goodsCount = currentgoodscount;
-      this.totalAmount = currenttotalamount;
+      this.goodsCount = currentgoodscount
+      this.totalAmount = currenttotalamount
     },
-    onClickPlus() {
+    onClickPlus () {
       if (this.goodsCount === this.item.stock) {
-        return Toast("购买数量不能大于库存");
+        return Toast('购买数量不能大于库存')
       }
-      var currentgoodscount = this.goodsCount;
-      currentgoodscount += 1;
-      var currenttotalamount = 0;
-      var currentprice = this.item.price;
-      currenttotalamount = currentprice * currentgoodscount;
+      var currentgoodscount = this.goodsCount
+      currentgoodscount += 1
+      var currenttotalamount = 0
+      var currentprice = this.item.price
+      currenttotalamount = currentprice * currentgoodscount
 
-      this.goodsCount = currentgoodscount;
-      this.totalAmount = currenttotalamount / 100;
+      this.goodsCount = currentgoodscount
+      this.totalAmount = currenttotalamount / 100
     },
-    onClickSubmit() {
-     const self = this;
+    onClickSubmit () {
+      const self = this
       // 生成随机订单号
-      const trade_no = (new Date()).getTime();
+      const tradeNo = (new Date()).getTime()
       axios
         .get(
-          `https://ah.cihangca.com/wanan/payment/sign?amount=${this.totalAmount * 100}&trade_no=${trade_no}&open_id=232332`
+          `https://ah.cihangca.com/wanan/payment/sign?amount=${this.totalAmount * 100}&trade_no=${tradeNo}&open_id=232332`
         )
         .then((res) => {
-          const form = res.data.form;
-          const content = form.biz_content;
-          delete form.biz_content;
-          const action = `https://gw.open.icbc.com.cn/ui/aggregate/payment/request/V1?${querystring.stringify(form)}`;
-          self.$refs['paymentForm'].action = action;
-          self.$refs['biz_content'].value = content;
-          self.$refs['paymentForm'].submit();
-        });
-    },
-  },
-};
+          const form = res.data.form
+          const content = form.biz_content
+          delete form.biz_content
+          const action = `https://gw.open.icbc.com.cn/ui/aggregate/payment/request/V1?${querystring.stringify(form)}`
+          self.$refs['paymentForm'].action = action
+          self.$refs['biz_content'].value = content
+          self.$refs['paymentForm'].submit()
+        })
+    }
+  }
+}
 </script>
 <style scoped>
 .container {
@@ -312,5 +315,24 @@ export default {
   color: rgba(151, 152, 153, 1);
   margin-left: 15px;
   margin-top: 5px;
+}
+
+.address_inp {
+  padding: 2px 0;
+}
+
+.address_inp /deep/ .van-field__label {
+  width: 60px;
+  text-align: right;
+}
+
+.address_inp /deep/ .van-field__value {
+  border-bottom: 1px solid #f5f5f4;
+  /* padding: 2px 0; */
+}
+
+.user_inp  /deep/ .van-field__value {
+  border-bottom-width: 0;
+  /* padding: 2px 0; */
 }
 </style>

@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import { Toast } from 'vant'
 export default {
   components: {},
   data () {
@@ -73,12 +74,13 @@ export default {
       // })
     },
     surePay () {
-     this.$router.push({
-        path: "/submit",
+      if (!localStorage.getItem('user_info')) return Toast('请前往个人中心登录')
+      this.$router.push({
+        path: '/submit',
         query: {
-          data: this.goodData,
-        },
-      });
+          data: this.goodData
+        }
+      })
     }
   }
 }
