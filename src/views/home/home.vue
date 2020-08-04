@@ -264,4 +264,9 @@ export default {
   font-weight: 400;
   color: rgba(195, 195, 195, 1);
 }
+
+.van-grid /deep/ .van-icon__image {
+  width: 1.5em;
+  height: 1.5em;
+}
 </style>
